@@ -6,6 +6,16 @@ export default {
   ],
   theme: {
     extend: {
+      container: {
+        center: true,
+        padding: {
+          DEFAULT: '1rem',
+          sm: '2rem',
+          lg: '4rem',
+          xl: '5rem',
+          '2xl': '6rem',
+        },
+      },
       colors: {
         // Base theme colors
         primary: '#0f172a',
@@ -46,6 +56,10 @@ export default {
             900: '#010a15',
           },
         },
+      },
+      animation: {
+        'float': 'float 6s ease-in-out infinite',
+        'blob': 'blob 15s infinite',
       },
     },
   },
