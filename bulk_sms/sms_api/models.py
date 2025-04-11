@@ -11,7 +11,8 @@ import uuid
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     phone_number = models.CharField(max_length=20, blank=True, null=True)
-    company_name = models.CharField(max_length=255, blank=True, null=True)
+    company_name = models.CharField(max_length=255, unique=True, blank=True, null=True)
+
     tokens_balance = models.IntegerField(default=0)
     metadata = models.JSONField(default=dict, blank=True)
 
