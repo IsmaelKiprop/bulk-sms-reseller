@@ -1,0 +1,346 @@
+INFO 2025-04-10 11:14:35,156 autoreload 100419 140335691841536 Watching for file changes with StatReloader
+INFO 2025-04-10 11:16:16,303 autoreload 100822 140182841466880 Watching for file changes with StatReloader
+WARNING 2025-04-10 11:16:35,234 log 100822 140182690985536 Forbidden (Origin checking failed - https://fb36-105-161-36-99.ngrok-free.app does not match any trusted origins.): /admin/login/
+WARNING 2025-04-10 11:16:35,273 basehttp 100822 140182690985536 "POST /admin/login/?next=/admin/ HTTP/1.1" 403 1019
+INFO 2025-04-10 11:18:37,508 autoreload 100822 140182841466880 /home/ismael/bulk-sms-reseller/bulk_sms/bulk_sms/settings.py changed, reloading.
+INFO 2025-04-10 11:18:38,362 autoreload 101615 140155815211008 Watching for file changes with StatReloader
+INFO 2025-04-10 11:18:47,803 basehttp 101615 140155734193728 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-04-10 11:18:48,394 basehttp 101615 140155734193728 "GET /admin/ HTTP/1.1" 200 10489
+WARNING 2025-04-10 11:18:48,963 log 101615 140155734193728 Not Found: /static/admin/css/dashboard.css
+WARNING 2025-04-10 11:18:48,968 basehttp 101615 140155734193728 "GET /static/admin/css/dashboard.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:18:49,204 log 101615 140155654501952 Not Found: /static/admin/css/base.css
+WARNING 2025-04-10 11:18:49,209 basehttp 101615 140155654501952 "GET /static/admin/css/base.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:18:49,207 log 101615 140155646109248 Not Found: /static/admin/css/nav_sidebar.css
+WARNING 2025-04-10 11:18:49,210 basehttp 101615 140155646109248 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:18:49,217 log 101615 140155637716544 Not Found: /static/admin/css/dark_mode.css
+WARNING 2025-04-10 11:18:49,218 basehttp 101615 140155637716544 "GET /static/admin/css/dark_mode.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:18:49,261 log 101615 140155629323840 Not Found: /static/admin/css/responsive.css
+WARNING 2025-04-10 11:18:49,273 basehttp 101615 140155629323840 "GET /static/admin/css/responsive.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:18:49,298 log 101615 140155734193728 Not Found: /static/admin/js/theme.js
+WARNING 2025-04-10 11:18:49,299 basehttp 101615 140155734193728 "GET /static/admin/js/theme.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:18:49,343 log 101615 140155620931136 Not Found: /static/admin/js/nav_sidebar.js
+WARNING 2025-04-10 11:18:49,344 basehttp 101615 140155620931136 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:18:50,457 log 101615 140155620931136 Not Found: /static/admin/js/nav_sidebar.js
+WARNING 2025-04-10 11:18:50,458 basehttp 101615 140155620931136 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:18:50,465 log 101615 140155734193728 Not Found: /static/admin/js/theme.js
+WARNING 2025-04-10 11:18:50,467 basehttp 101615 140155734193728 "GET /static/admin/js/theme.js HTTP/1.1" 404 179
+INFO 2025-04-10 11:19:13,387 basehttp 101615 140155629323840 "GET /admin HTTP/1.1" 301 0
+INFO 2025-04-10 11:19:13,433 basehttp 101615 140155629323840 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-04-10 11:19:13,640 basehttp 101615 140155629323840 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4181
+WARNING 2025-04-10 11:19:13,766 log 101615 140155629323840 Not Found: /static/admin/css/base.css
+WARNING 2025-04-10 11:19:13,767 basehttp 101615 140155629323840 "GET /static/admin/css/base.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:19:13,806 log 101615 140155629323840 Not Found: /static/admin/css/dark_mode.css
+WARNING 2025-04-10 11:19:13,807 basehttp 101615 140155629323840 "GET /static/admin/css/dark_mode.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:19:13,834 log 101615 140155637716544 Not Found: /static/admin/css/nav_sidebar.css
+WARNING 2025-04-10 11:19:13,848 log 101615 140155612538432 Not Found: /static/admin/css/login.css
+WARNING 2025-04-10 11:19:13,849 basehttp 101615 140155637716544 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:19:13,852 basehttp 101615 140155612538432 "GET /static/admin/css/login.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:19:14,008 log 101615 140155604145728 Not Found: /static/admin/css/responsive.css
+WARNING 2025-04-10 11:19:14,009 basehttp 101615 140155604145728 "GET /static/admin/css/responsive.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:19:14,287 log 101615 140155604145728 Not Found: /static/admin/js/theme.js
+WARNING 2025-04-10 11:19:14,291 log 101615 140155629323840 Not Found: /static/admin/js/nav_sidebar.js
+WARNING 2025-04-10 11:19:14,293 basehttp 101615 140155604145728 "GET /static/admin/js/theme.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:19:14,293 basehttp 101615 140155629323840 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:19:14,458 log 101615 140155050522176 Not Found: /static/admin/js/nav_sidebar.js
+WARNING 2025-04-10 11:19:14,460 basehttp 101615 140155050522176 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:19:14,603 log 101615 140155042129472 Not Found: /static/admin/js/theme.js
+WARNING 2025-04-10 11:19:14,604 basehttp 101615 140155042129472 "GET /static/admin/js/theme.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:19:15,309 log 101615 140155604145728 Not Found: /favicon.ico
+WARNING 2025-04-10 11:19:15,311 basehttp 101615 140155604145728 "GET /favicon.ico HTTP/1.1" 404 179
+INFO 2025-04-10 11:19:51,574 basehttp 101615 140155620931136 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4181
+WARNING 2025-04-10 11:19:51,726 log 101615 140155646109248 Not Found: /static/admin/css/dark_mode.css
+WARNING 2025-04-10 11:19:51,730 log 101615 140155620931136 Not Found: /static/admin/css/base.css
+WARNING 2025-04-10 11:19:51,732 basehttp 101615 140155646109248 "GET /static/admin/css/dark_mode.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:19:51,732 basehttp 101615 140155620931136 "GET /static/admin/css/base.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:19:51,784 log 101615 140155734193728 Not Found: /static/admin/css/nav_sidebar.css
+WARNING 2025-04-10 11:19:51,786 basehttp 101615 140155734193728 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:19:51,844 log 101615 140155654501952 Not Found: /static/admin/css/responsive.css
+WARNING 2025-04-10 11:19:51,845 basehttp 101615 140155654501952 "GET /static/admin/css/responsive.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:19:51,900 log 101615 140155637716544 Not Found: /static/admin/css/login.css
+WARNING 2025-04-10 11:19:51,903 basehttp 101615 140155637716544 "GET /static/admin/css/login.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:19:52,077 log 101615 140155637716544 Not Found: /static/admin/js/theme.js
+WARNING 2025-04-10 11:19:52,080 log 101615 140155654501952 Not Found: /static/admin/js/nav_sidebar.js
+WARNING 2025-04-10 11:19:52,081 basehttp 101615 140155637716544 "GET /static/admin/js/theme.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:19:52,082 basehttp 101615 140155654501952 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:19:52,113 log 101615 140155629323840 Not Found: /static/admin/js/theme.js
+WARNING 2025-04-10 11:19:52,114 basehttp 101615 140155629323840 "GET /static/admin/js/theme.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:19:52,149 log 101615 140155629323840 Not Found: /static/admin/js/nav_sidebar.js
+WARNING 2025-04-10 11:19:52,150 basehttp 101615 140155629323840 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 404 179
+INFO 2025-04-10 11:19:57,210 basehttp 101615 140155620931136 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4181
+WARNING 2025-04-10 11:19:57,253 log 101615 140155620931136 Not Found: /static/admin/css/base.css
+WARNING 2025-04-10 11:19:57,255 basehttp 101615 140155620931136 "GET /static/admin/css/base.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:19:57,282 log 101615 140155654501952 Not Found: /static/admin/css/nav_sidebar.css
+WARNING 2025-04-10 11:19:57,285 log 101615 140155620931136 Not Found: /static/admin/css/dark_mode.css
+WARNING 2025-04-10 11:19:57,291 basehttp 101615 140155620931136 "GET /static/admin/css/dark_mode.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:19:57,292 basehttp 101615 140155654501952 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:19:57,303 log 101615 140155734193728 Not Found: /static/admin/css/login.css
+WARNING 2025-04-10 11:19:57,306 basehttp 101615 140155734193728 "GET /static/admin/css/login.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:19:57,317 log 101615 140155637716544 Not Found: /static/admin/css/responsive.css
+WARNING 2025-04-10 11:19:57,319 basehttp 101615 140155637716544 "GET /static/admin/css/responsive.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:19:57,580 log 101615 140155620931136 Not Found: /static/admin/js/theme.js
+WARNING 2025-04-10 11:19:57,582 log 101615 140155637716544 Not Found: /static/admin/js/nav_sidebar.js
+WARNING 2025-04-10 11:19:57,586 basehttp 101615 140155620931136 "GET /static/admin/js/theme.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:19:57,587 basehttp 101615 140155637716544 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:19:57,634 log 101615 140155646109248 Not Found: /static/admin/js/nav_sidebar.js
+WARNING 2025-04-10 11:19:57,636 basehttp 101615 140155646109248 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:19:57,647 log 101615 140155629323840 Not Found: /static/admin/js/theme.js
+WARNING 2025-04-10 11:19:57,663 basehttp 101615 140155629323840 "GET /static/admin/js/theme.js HTTP/1.1" 404 179
+INFO 2025-04-10 11:20:11,081 autoreload 102288 139703766290432 Watching for file changes with StatReloader
+INFO 2025-04-10 11:20:16,819 basehttp 102288 139703609194048 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4181
+WARNING 2025-04-10 11:20:16,900 log 102288 139703609194048 Not Found: /static/admin/css/base.css
+WARNING 2025-04-10 11:20:16,901 basehttp 102288 139703609194048 "GET /static/admin/css/base.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:20:16,905 log 102288 139703600801344 Not Found: /static/admin/css/dark_mode.css
+WARNING 2025-04-10 11:20:16,906 basehttp 102288 139703600801344 "GET /static/admin/css/dark_mode.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:20:16,974 log 102288 139703592408640 Not Found: /static/admin/css/nav_sidebar.css
+WARNING 2025-04-10 11:20:16,975 basehttp 102288 139703592408640 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:20:17,209 log 102288 139703584015936 Not Found: /static/admin/css/login.css
+WARNING 2025-04-10 11:20:17,243 log 102288 139703575623232 Not Found: /static/admin/css/responsive.css
+WARNING 2025-04-10 11:20:17,277 log 102288 139703592408640 Not Found: /static/admin/js/theme.js
+WARNING 2025-04-10 11:20:17,281 log 102288 139703600801344 Not Found: /static/admin/js/nav_sidebar.js
+WARNING 2025-04-10 11:20:17,292 basehttp 102288 139703584015936 "GET /static/admin/css/login.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:20:17,292 basehttp 102288 139703575623232 "GET /static/admin/css/responsive.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:20:17,293 basehttp 102288 139703592408640 "GET /static/admin/js/theme.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:20:17,295 basehttp 102288 139703600801344 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:20:18,075 log 102288 139703600801344 Not Found: /static/admin/js/theme.js
+WARNING 2025-04-10 11:20:18,079 log 102288 139703584015936 Not Found: /static/admin/js/nav_sidebar.js
+WARNING 2025-04-10 11:20:18,080 basehttp 102288 139703600801344 "GET /static/admin/js/theme.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:20:18,084 basehttp 102288 139703584015936 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 404 179
+INFO 2025-04-10 11:22:09,545 autoreload 102288 139703766290432 /home/ismael/bulk-sms-reseller/bulk_sms/bulk_sms/settings.py changed, reloading.
+INFO 2025-04-10 11:22:12,281 autoreload 103101 140003213795328 Watching for file changes with StatReloader
+INFO 2025-04-10 11:22:35,262 autoreload 103267 140266597720064 Watching for file changes with StatReloader
+INFO 2025-04-10 11:22:49,604 basehttp 103267 140266447042112 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4181
+WARNING 2025-04-10 11:22:49,651 log 103267 140266438649408 Not Found: /static/admin/css/login.css
+WARNING 2025-04-10 11:22:49,654 log 103267 140266447042112 Not Found: /static/admin/css/nav_sidebar.css
+WARNING 2025-04-10 11:22:49,656 basehttp 103267 140266438649408 "GET /static/admin/css/login.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:22:49,660 basehttp 103267 140266447042112 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:22:49,674 log 103267 140266430256704 Not Found: /static/admin/css/responsive.css
+WARNING 2025-04-10 11:22:49,680 basehttp 103267 140266430256704 "GET /static/admin/css/responsive.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:22:49,708 log 103267 140266421864000 Not Found: /static/admin/css/base.css
+WARNING 2025-04-10 11:22:49,709 basehttp 103267 140266421864000 "GET /static/admin/css/base.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:22:49,791 log 103267 140266413471296 Not Found: /static/admin/css/dark_mode.css
+WARNING 2025-04-10 11:22:49,792 basehttp 103267 140266413471296 "GET /static/admin/css/dark_mode.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:22:49,921 log 103267 140266413471296 Not Found: /static/admin/js/theme.js
+WARNING 2025-04-10 11:22:49,923 log 103267 140266421864000 Not Found: /static/admin/js/nav_sidebar.js
+WARNING 2025-04-10 11:22:49,925 basehttp 103267 140266413471296 "GET /static/admin/js/theme.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:22:49,926 basehttp 103267 140266421864000 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:22:49,975 log 103267 140266405078592 Not Found: /static/admin/js/theme.js
+WARNING 2025-04-10 11:22:49,976 basehttp 103267 140266405078592 "GET /static/admin/js/theme.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:22:50,043 log 103267 140266396685888 Not Found: /static/admin/js/nav_sidebar.js
+WARNING 2025-04-10 11:22:50,046 basehttp 103267 140266396685888 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 404 179
+INFO 2025-04-10 11:24:12,295 basehttp 103267 140266421864000 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4181
+WARNING 2025-04-10 11:24:12,487 log 103267 140266421864000 Not Found: /static/admin/css/base.css
+WARNING 2025-04-10 11:24:12,497 basehttp 103267 140266421864000 "GET /static/admin/css/base.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:12,896 log 103267 140266421864000 Not Found: /static/admin/css/dark_mode.css
+WARNING 2025-04-10 11:24:12,898 basehttp 103267 140266421864000 "GET /static/admin/css/dark_mode.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:13,065 log 103267 140266430256704 Not Found: /static/admin/css/nav_sidebar.css
+WARNING 2025-04-10 11:24:13,066 basehttp 103267 140266430256704 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:13,093 log 103267 140266413471296 Not Found: /static/admin/css/responsive.css
+WARNING 2025-04-10 11:24:13,094 basehttp 103267 140266413471296 "GET /static/admin/css/responsive.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:13,196 log 103267 140266447042112 Not Found: /static/admin/css/login.css
+WARNING 2025-04-10 11:24:13,197 basehttp 103267 140266447042112 "GET /static/admin/css/login.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:13,864 log 103267 140266413471296 Not Found: /static/admin/js/nav_sidebar.js
+WARNING 2025-04-10 11:24:13,865 basehttp 103267 140266413471296 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:14,031 log 103267 140266447042112 Not Found: /static/admin/js/theme.js
+WARNING 2025-04-10 11:24:14,037 log 103267 140266430256704 Not Found: /static/admin/js/nav_sidebar.js
+WARNING 2025-04-10 11:24:14,039 basehttp 103267 140266447042112 "GET /static/admin/js/theme.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:14,041 basehttp 103267 140266430256704 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:15,552 log 103267 140266447042112 Not Found: /favicon.ico
+WARNING 2025-04-10 11:24:15,554 basehttp 103267 140266447042112 "GET /favicon.ico HTTP/1.1" 404 179
+INFO 2025-04-10 11:24:22,269 basehttp 103267 140266447042112 "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4342
+WARNING 2025-04-10 11:24:22,322 log 103267 140266447042112 Not Found: /static/admin/css/base.css
+WARNING 2025-04-10 11:24:22,323 basehttp 103267 140266447042112 "GET /static/admin/css/base.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:22,330 log 103267 140266413471296 Not Found: /static/admin/css/dark_mode.css
+WARNING 2025-04-10 11:24:22,331 basehttp 103267 140266413471296 "GET /static/admin/css/dark_mode.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:22,366 log 103267 140266421864000 Not Found: /static/admin/css/login.css
+WARNING 2025-04-10 11:24:22,369 log 103267 140266438649408 Not Found: /static/admin/css/nav_sidebar.css
+WARNING 2025-04-10 11:24:22,375 log 103267 140266405078592 Not Found: /static/admin/css/responsive.css
+WARNING 2025-04-10 11:24:22,377 basehttp 103267 140266421864000 "GET /static/admin/css/login.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:22,382 basehttp 103267 140266438649408 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:22,398 basehttp 103267 140266405078592 "GET /static/admin/css/responsive.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:22,622 log 103267 140266405078592 Not Found: /static/admin/js/theme.js
+WARNING 2025-04-10 11:24:22,627 log 103267 140266438649408 Not Found: /static/admin/js/nav_sidebar.js
+WARNING 2025-04-10 11:24:22,629 basehttp 103267 140266405078592 "GET /static/admin/js/theme.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:22,638 basehttp 103267 140266438649408 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:24,763 log 103267 140266421864000 Not Found: /static/admin/js/theme.js
+WARNING 2025-04-10 11:24:24,766 log 103267 140266405078592 Not Found: /static/admin/js/nav_sidebar.js
+WARNING 2025-04-10 11:24:24,767 basehttp 103267 140266421864000 "GET /static/admin/js/theme.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:24,769 basehttp 103267 140266405078592 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 404 179
+INFO 2025-04-10 11:24:30,580 basehttp 103267 140266413471296 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-04-10 11:24:30,622 basehttp 103267 140266413471296 "GET /admin/ HTTP/1.1" 200 10489
+WARNING 2025-04-10 11:24:30,716 log 103267 140266413471296 Not Found: /static/admin/css/base.css
+WARNING 2025-04-10 11:24:30,717 basehttp 103267 140266413471296 "GET /static/admin/css/base.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:30,722 log 103267 140266438649408 Not Found: /static/admin/css/dashboard.css
+WARNING 2025-04-10 11:24:30,723 basehttp 103267 140266438649408 "GET /static/admin/css/dashboard.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:30,733 log 103267 140266447042112 Not Found: /static/admin/css/dark_mode.css
+WARNING 2025-04-10 11:24:30,735 basehttp 103267 140266447042112 "GET /static/admin/css/dark_mode.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:30,759 log 103267 140266430256704 Not Found: /static/admin/css/nav_sidebar.css
+WARNING 2025-04-10 11:24:30,760 basehttp 103267 140266430256704 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:30,771 log 103267 140266396685888 Not Found: /static/admin/css/responsive.css
+WARNING 2025-04-10 11:24:30,773 basehttp 103267 140266396685888 "GET /static/admin/css/responsive.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:31,004 log 103267 140266396685888 Not Found: /static/admin/js/theme.js
+WARNING 2025-04-10 11:24:31,007 log 103267 140266430256704 Not Found: /static/admin/js/nav_sidebar.js
+WARNING 2025-04-10 11:24:31,009 basehttp 103267 140266396685888 "GET /static/admin/js/theme.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:31,010 basehttp 103267 140266430256704 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:31,066 log 103267 140266405078592 Not Found: /static/admin/js/theme.js
+WARNING 2025-04-10 11:24:31,067 basehttp 103267 140266405078592 "GET /static/admin/js/theme.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:31,079 log 103267 140266405078592 Not Found: /static/admin/js/nav_sidebar.js
+WARNING 2025-04-10 11:24:31,079 basehttp 103267 140266405078592 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 404 179
+INFO 2025-04-10 11:24:43,882 basehttp 103267 140266447042112 "GET /admin/sms_api/user/ HTTP/1.1" 200 11825
+WARNING 2025-04-10 11:24:43,934 log 103267 140266447042112 Not Found: /static/admin/css/base.css
+WARNING 2025-04-10 11:24:43,935 basehttp 103267 140266447042112 "GET /static/admin/css/base.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:43,948 log 103267 140266396685888 Not Found: /static/admin/css/changelists.css
+WARNING 2025-04-10 11:24:43,949 basehttp 103267 140266396685888 "GET /static/admin/css/changelists.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:43,963 log 103267 140266447042112 Not Found: /static/admin/css/dark_mode.css
+WARNING 2025-04-10 11:24:43,964 basehttp 103267 140266447042112 "GET /static/admin/css/dark_mode.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:43,970 log 103267 140266396685888 Not Found: /static/admin/css/nav_sidebar.css
+WARNING 2025-04-10 11:24:43,976 basehttp 103267 140266396685888 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:43,985 log 103267 140266430256704 Not Found: /static/admin/js/vendor/jquery/jquery.min.js
+WARNING 2025-04-10 11:24:43,994 basehttp 103267 140266430256704 "GET /static/admin/js/vendor/jquery/jquery.min.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:43,999 log 103267 140266430256704 Not Found: /static/admin/css/responsive.css
+WARNING 2025-04-10 11:24:44,000 basehttp 103267 140266430256704 "GET /static/admin/css/responsive.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:44,015 log 103267 140266438649408 Not Found: /static/admin/js/core.js
+WARNING 2025-04-10 11:24:44,035 basehttp 103267 140266438649408 "GET /static/admin/js/core.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:44,045 log 103267 140266447042112 Not Found: /static/admin/js/admin/RelatedObjectLookups.js
+WARNING 2025-04-10 11:24:44,048 log 103267 140266396685888 Not Found: /static/admin/js/actions.js
+WARNING 2025-04-10 11:24:44,050 log 103267 140266438649408 Not Found: /static/admin/js/urlify.js
+WARNING 2025-04-10 11:24:44,061 basehttp 103267 140266438649408 "GET /static/admin/js/urlify.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:44,059 basehttp 103267 140266396685888 "GET /static/admin/js/actions.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:44,056 basehttp 103267 140266447042112 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 404 179
+INFO 2025-04-10 11:24:44,094 basehttp 103267 140266405078592 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+WARNING 2025-04-10 11:24:44,098 log 103267 140266430256704 Not Found: /static/admin/js/prepopulate.js
+WARNING 2025-04-10 11:24:44,098 basehttp 103267 140266430256704 "GET /static/admin/js/prepopulate.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:44,112 log 103267 140266438649408 Not Found: /static/admin/img/search.svg
+WARNING 2025-04-10 11:24:44,116 log 103267 140266405078592 Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
+WARNING 2025-04-10 11:24:44,118 basehttp 103267 140266438649408 "GET /static/admin/img/search.svg HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:44,122 log 103267 140266421864000 Not Found: /static/admin/js/jquery.init.js
+WARNING 2025-04-10 11:24:44,134 basehttp 103267 140266421864000 "GET /static/admin/js/jquery.init.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:44,164 basehttp 103267 140266405078592 "GET /static/admin/js/vendor/xregexp/xregexp.min.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:44,169 log 103267 140266413471296 Not Found: /static/admin/js/vendor/jquery/jquery.min.js
+WARNING 2025-04-10 11:24:44,172 basehttp 103267 140266413471296 "GET /static/admin/js/vendor/jquery/jquery.min.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:44,193 log 103267 140266413471296 Not Found: /static/admin/js/admin/RelatedObjectLookups.js
+WARNING 2025-04-10 11:24:44,194 basehttp 103267 140266413471296 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:44,199 log 103267 140265914365504 Not Found: /static/admin/js/core.js
+WARNING 2025-04-10 11:24:44,212 basehttp 103267 140265914365504 "GET /static/admin/js/core.js HTTP/1.1" 404 179
+INFO 2025-04-10 11:24:44,263 basehttp 103267 140265905972800 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+WARNING 2025-04-10 11:24:44,278 log 103267 140265897580096 Not Found: /static/admin/js/urlify.js
+WARNING 2025-04-10 11:24:44,280 log 103267 140265914365504 Not Found: /static/admin/js/jquery.init.js
+WARNING 2025-04-10 11:24:44,283 log 103267 140266413471296 Not Found: /static/admin/js/actions.js
+WARNING 2025-04-10 11:24:44,286 basehttp 103267 140265914365504 "GET /static/admin/js/jquery.init.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:44,287 basehttp 103267 140266413471296 "GET /static/admin/js/actions.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:44,293 basehttp 103267 140265897580096 "GET /static/admin/js/urlify.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:44,463 log 103267 140266405078592 Not Found: /static/admin/css/changelists.css
+WARNING 2025-04-10 11:24:44,465 log 103267 140266438649408 Not Found: /static/admin/css/base.css
+WARNING 2025-04-10 11:24:44,467 basehttp 103267 140266405078592 "GET /static/admin/css/changelists.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:44,467 basehttp 103267 140266438649408 "GET /static/admin/css/base.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:44,509 log 103267 140266438649408 Not Found: /static/admin/js/filters.js
+WARNING 2025-04-10 11:24:44,522 log 103267 140266430256704 Not Found: /static/admin/js/nav_sidebar.js
+WARNING 2025-04-10 11:24:44,527 log 103267 140266421864000 Not Found: /static/admin/css/responsive.css
+WARNING 2025-04-10 11:24:44,528 log 103267 140266405078592 Not Found: /static/admin/js/theme.js
+WARNING 2025-04-10 11:24:44,529 basehttp 103267 140266438649408 "GET /static/admin/js/filters.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:44,543 basehttp 103267 140266405078592 "GET /static/admin/js/theme.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:44,531 basehttp 103267 140266430256704 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:44,544 basehttp 103267 140266421864000 "GET /static/admin/css/responsive.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:44,865 log 103267 140266413471296 Not Found: /static/admin/js/prepopulate.js
+WARNING 2025-04-10 11:24:44,866 basehttp 103267 140266413471296 "GET /static/admin/js/prepopulate.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:45,090 log 103267 140266413471296 Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
+WARNING 2025-04-10 11:24:45,092 log 103267 140265897580096 Not Found: /static/admin/js/filters.js
+WARNING 2025-04-10 11:24:45,093 log 103267 140265914365504 Not Found: /static/admin/js/theme.js
+WARNING 2025-04-10 11:24:45,095 basehttp 103267 140266413471296 "GET /static/admin/js/vendor/xregexp/xregexp.min.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:45,096 basehttp 103267 140265897580096 "GET /static/admin/js/filters.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:45,097 basehttp 103267 140265914365504 "GET /static/admin/js/theme.js HTTP/1.1" 404 179
+INFO 2025-04-10 11:24:57,714 basehttp 103267 140266396685888 "GET /admin/auth/user/add/ HTTP/1.1" 200 13604
+WARNING 2025-04-10 11:24:57,782 log 103267 140266405078592 Not Found: /static/admin/css/responsive.css
+WARNING 2025-04-10 11:24:57,786 log 103267 140266396685888 Not Found: /static/admin/css/forms.css
+WARNING 2025-04-10 11:24:57,788 basehttp 103267 140266396685888 "GET /static/admin/css/forms.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:57,789 basehttp 103267 140266405078592 "GET /static/admin/css/responsive.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:57,828 log 103267 140266405078592 Not Found: /static/admin/js/vendor/jquery/jquery.min.js
+INFO 2025-04-10 11:24:57,834 basehttp 103267 140266396685888 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+WARNING 2025-04-10 11:24:57,835 basehttp 103267 140266405078592 "GET /static/admin/js/vendor/jquery/jquery.min.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:57,838 log 103267 140266438649408 Not Found: /static/admin/css/base.css
+WARNING 2025-04-10 11:24:57,849 basehttp 103267 140266438649408 "GET /static/admin/css/base.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:57,870 log 103267 140266438649408 Not Found: /static/admin/js/jquery.init.js
+WARNING 2025-04-10 11:24:57,882 log 103267 140266447042112 Not Found: /static/admin/css/dark_mode.css
+WARNING 2025-04-10 11:24:57,885 log 103267 140266427106880 Not Found: /static/admin/js/prepopulate_init.js
+WARNING 2025-04-10 11:24:57,888 basehttp 103267 140266438649408 "GET /static/admin/js/jquery.init.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:57,917 log 103267 140266418714176 Not Found: /static/admin/css/nav_sidebar.css
+WARNING 2025-04-10 11:24:57,920 log 103267 140266396685888 Not Found: /static/admin/js/admin/RelatedObjectLookups.js
+WARNING 2025-04-10 11:24:57,903 log 103267 140266405078592 Not Found: /static/admin/js/core.js
+WARNING 2025-04-10 11:24:57,966 basehttp 103267 140266405078592 "GET /static/admin/js/core.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:57,967 basehttp 103267 140266418714176 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:57,933 basehttp 103267 140266427106880 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:57,946 log 103267 140265914365504 Not Found: /static/admin/js/vendor/jquery/jquery.min.js
+WARNING 2025-04-10 11:24:57,965 basehttp 103267 140266396685888 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:57,928 basehttp 103267 140266447042112 "GET /static/admin/css/dark_mode.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:57,943 log 103267 140266438649408 Not Found: /static/admin/js/prepopulate.js
+WARNING 2025-04-10 11:24:58,009 log 103267 140266418714176 Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
+WARNING 2025-04-10 11:24:58,014 log 103267 140266427106880 Not Found: /static/admin/js/actions.js
+WARNING 2025-04-10 11:24:58,025 log 103267 140266447042112 Not Found: /static/admin/js/urlify.js
+WARNING 2025-04-10 11:24:58,042 log 103267 140265889187392 Not Found: /static/admin/js/jquery.init.js
+WARNING 2025-04-10 11:24:58,031 basehttp 103267 140266427106880 "GET /static/admin/js/actions.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:58,031 basehttp 103267 140266418714176 "GET /static/admin/js/vendor/xregexp/xregexp.min.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:58,034 log 103267 140265897580096 Not Found: /static/admin/js/prepopulate_init.js
+WARNING 2025-04-10 11:24:58,053 basehttp 103267 140266447042112 "GET /static/admin/js/urlify.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:58,053 basehttp 103267 140265914365504 "GET /static/admin/js/vendor/jquery/jquery.min.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:58,026 basehttp 103267 140266438649408 "GET /static/admin/js/prepopulate.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:58,066 basehttp 103267 140265897580096 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 404 179
+INFO 2025-04-10 11:24:58,068 basehttp 103267 140265905972800 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+WARNING 2025-04-10 11:24:58,071 basehttp 103267 140265889187392 "GET /static/admin/js/jquery.init.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:58,134 log 103267 140265880794688 Not Found: /static/admin/js/core.js
+WARNING 2025-04-10 11:24:58,135 basehttp 103267 140265880794688 "GET /static/admin/js/core.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:58,146 log 103267 140265872401984 Not Found: /static/admin/js/admin/RelatedObjectLookups.js
+WARNING 2025-04-10 11:24:58,147 basehttp 103267 140265872401984 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:58,219 log 103267 140266427106880 Not Found: /static/admin/js/nav_sidebar.js
+WARNING 2025-04-10 11:24:58,222 log 103267 140266447042112 Not Found: /static/admin/js/change_form.js
+WARNING 2025-04-10 11:24:58,225 log 103267 140266418714176 Not Found: /static/admin/js/theme.js
+WARNING 2025-04-10 11:24:58,229 log 103267 140266438649408 Not Found: /static/admin/css/responsive.css
+WARNING 2025-04-10 11:24:58,232 basehttp 103267 140266427106880 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:58,235 basehttp 103267 140266447042112 "GET /static/admin/js/change_form.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:58,236 basehttp 103267 140266418714176 "GET /static/admin/js/theme.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:58,238 basehttp 103267 140266438649408 "GET /static/admin/css/responsive.css HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:58,575 log 103267 140265872401984 Not Found: /static/admin/js/prepopulate.js
+WARNING 2025-04-10 11:24:58,578 log 103267 140265880794688 Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
+WARNING 2025-04-10 11:24:58,580 log 103267 140265889187392 Not Found: /static/admin/js/urlify.js
+WARNING 2025-04-10 11:24:58,582 basehttp 103267 140265872401984 "GET /static/admin/js/prepopulate.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:58,583 basehttp 103267 140265880794688 "GET /static/admin/js/vendor/xregexp/xregexp.min.js HTTP/1.1" 404 179
+WARNING 2025-04-10 11:24:58,584 basehttp 103267 140265889187392 "GET /static/admin/js/urlify.js HTTP/1.1" 404 179
+INFO 2025-04-10 11:32:31,222 autoreload 103267 140266597720064 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-10 11:32:33,852 autoreload 107359 139745537212416 Watching for file changes with StatReloader
+INFO 2025-04-10 11:37:06,685 autoreload 107359 139745537212416 /home/ismael/bulk-sms-reseller/bulk_sms/bulk_sms/settings.py changed, reloading.
+INFO 2025-04-10 11:37:07,798 autoreload 109204 139916951158784 Watching for file changes with StatReloader
+INFO 2025-04-10 11:51:17,580 autoreload 109204 139916951158784 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-10 11:51:18,639 autoreload 114880 140073416167424 Watching for file changes with StatReloader
+INFO 2025-04-10 11:52:01,706 autoreload 114880 140073416167424 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-10 11:52:02,491 autoreload 115174 140590927224832 Watching for file changes with StatReloader
+INFO 2025-04-10 11:52:37,471 autoreload 115174 140590927224832 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-10 11:52:38,140 autoreload 115421 140658947923968 Watching for file changes with StatReloader
+INFO 2025-04-10 11:54:45,718 autoreload 115421 140658947923968 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-10 11:54:46,348 autoreload 116279 139630586413056 Watching for file changes with StatReloader
+INFO 2025-04-10 11:56:09,962 autoreload 116279 139630586413056 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-10 11:56:10,699 autoreload 116856 139719585992704 Watching for file changes with StatReloader
+INFO 2025-04-10 11:56:26,122 autoreload 116856 139719585992704 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-10 11:56:26,804 autoreload 116971 140466471297024 Watching for file changes with StatReloader
+INFO 2025-04-10 11:56:50,050 autoreload 116971 140466471297024 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-10 11:56:50,891 autoreload 117135 140463096836096 Watching for file changes with StatReloader
+INFO 2025-04-10 11:58:39,308 autoreload 117135 140463096836096 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-10 11:58:40,072 autoreload 117874 140693630029824 Watching for file changes with StatReloader
+INFO 2025-04-10 12:02:27,591 autoreload 117874 140693630029824 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-10 12:02:30,620 autoreload 119414 140144111296512 Watching for file changes with StatReloader
+INFO 2025-04-10 12:05:12,113 autoreload 119414 140144111296512 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-10 12:05:12,957 autoreload 120520 140682631737344 Watching for file changes with StatReloader
+INFO 2025-04-10 12:08:19,712 autoreload 120520 140682631737344 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/serializers.py changed, reloading.
+INFO 2025-04-10 12:08:20,486 autoreload 121775 139715744083968 Watching for file changes with StatReloader
+INFO 2025-04-10 12:08:38,140 autoreload 121775 139715744083968 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/serializers.py changed, reloading.
+INFO 2025-04-10 12:08:38,969 autoreload 121907 140244237012992 Watching for file changes with StatReloader
+INFO 2025-04-10 12:10:46,903 autoreload 121907 140244237012992 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/serializers.py changed, reloading.
+INFO 2025-04-10 12:10:48,867 autoreload 122774 140239743815680 Watching for file changes with StatReloader
+INFO 2025-04-10 12:33:39,220 autoreload 122774 140239743815680 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/serializers.py changed, reloading.
+INFO 2025-04-10 12:33:40,273 autoreload 131641 140525975285760 Watching for file changes with StatReloader
+INFO 2025-04-10 12:33:42,958 autoreload 131641 140525975285760 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/serializers.py changed, reloading.
+INFO 2025-04-10 12:33:45,480 autoreload 131668 140454345371648 Watching for file changes with StatReloader
+INFO 2025-04-10 12:37:28,659 autoreload 131668 140454345371648 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-10 12:37:29,630 autoreload 133124 139995283828736 Watching for file changes with StatReloader
+INFO 2025-04-10 12:55:13,548 autoreload 133124 139995283828736 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-10 12:55:20,758 autoreload 139871 139798311841792 Watching for file changes with StatReloader
+INFO 2025-04-11 12:35:04,979 autoreload 43876 140180610437120 Watching for file changes with StatReloader
+INFO 2025-04-11 12:47:36,457 autoreload 43876 140180610437120 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-11 12:47:38,724 autoreload 48879 140291027062784 Watching for file changes with StatReloader
