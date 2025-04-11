@@ -12,6 +12,8 @@ from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.utils.decorators import method_decorator
 from django.views.decorators.debug import sensitive_post_parameters
+from django.contrib.auth import get_user_model
+from rest_framework_simplejwt.tokens import RefreshToken
 from utils.sms_gateways import generate_otp, send_otp_sms
 import logging
 from .serializers import (
@@ -19,7 +21,7 @@ from .serializers import (
     ChangePasswordSerializer, ResetPasswordRequestSerializer, ResetPasswordConfirmSerializer,
     UserProfileUpdateSerializer, PhoneVerificationRequestSerializer, PhoneVerificationConfirmSerializer, 
     PhoneBookSerializer, ContactSerializer, SMSCampaignSerializer, PaymentSerializer, SMSTemplateSerializer,
-    WebhookEndpointSerializer, SMSMessageSerializer
+    WebhookEndpointSerializer, SMSMessageSerializer, LoginSerializer
 )
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
@@ -27,12 +29,41 @@ from drf_yasg import openapi
 User = get_user_model()
 logger = logging.getLogger(__name__)
 
+
 class CustomTokenObtainPairView(TokenObtainPairView):
     """
-    Takes a set of user credentials and returns an access and refresh JSON web
-    token pair to prove the authentication of those credentials.
+    Takes a set of user credentials (company_name, password) and returns an access and refresh JWT pair
+    with additional user details.
     """
     serializer_class = CustomTokenObtainPairSerializer
+    
+    @swagger_auto_schema(
+        operation_description="Obtain JWT token pair with company name and password",
+        responses={
+            200: openapi.Response(
+                description="JWT token pair with user details",
+                schema=openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'access': openapi.Schema(type=openapi.TYPE_STRING),
+                        'refresh': openapi.Schema(type=openapi.TYPE_STRING),
+                        'user_id': openapi.Schema(type=openapi.TYPE_STRING),
+                        'company_name': openapi.Schema(type=openapi.TYPE_STRING),
+                        'phone_number': openapi.Schema(type=openapi.TYPE_STRING),
+                        'email': openapi.Schema(type=openapi.TYPE_STRING),
+                        'tokens_balance': openapi.Schema(type=openapi.TYPE_INTEGER),
+                        'is_staff': openapi.Schema(type=openapi.TYPE_BOOLEAN),
+                        'is_phone_verified': openapi.Schema(type=openapi.TYPE_BOOLEAN),
+                    }
+                )
+            ),
+            401: "Invalid credentials"
+        }
+    )
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
+
+
 
 class RegisterView(APIView):
     """
@@ -181,6 +212,105 @@ class PhoneVerificationConfirmView(APIView):
             }, status=status.HTTP_200_OK)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class LoginView(APIView):
+    """
+    API endpoint for user login with company name and password.
+    """
+    permission_classes = [AllowAny]
+    
+    @swagger_auto_schema(
+        operation_description="Login with company name and password",
+        request_body=LoginSerializer,
+        responses={
+            200: openapi.Response(
+                description="Login successful with JWT tokens",
+                schema=openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'refresh': openapi.Schema(type=openapi.TYPE_STRING),
+                        'access': openapi.Schema(type=openapi.TYPE_STRING),
+                        'user_id': openapi.Schema(type=openapi.TYPE_STRING),
+                        'company_name': openapi.Schema(type=openapi.TYPE_STRING),
+                        'phone_number': openapi.Schema(type=openapi.TYPE_STRING),
+                        'email': openapi.Schema(type=openapi.TYPE_STRING),
+                        'tokens_balance': openapi.Schema(type=openapi.TYPE_INTEGER),
+                        'is_phone_verified': openapi.Schema(type=openapi.TYPE_BOOLEAN),
+                    }
+                )
+            ),
+            400: "Bad request",
+            401: "Invalid credentials"
+        }
+    )
+    def post(self, request):
+        serializer = LoginSerializer(data=request.data, context={'request': request})
+        
+        if serializer.is_valid():
+            user = serializer.validated_data['user']
+            
+            # Get tokens for the user
+            refresh = RefreshToken.for_user(user)
+            
+            # Update last login if you want to track that
+            from django.utils import timezone
+            user.last_login = timezone.now()
+            user.save(update_fields=['last_login'])
+            
+            return Response({
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
+                'user_id': str(user.id),
+                'company_name': user.company_name,
+                'phone_number': user.phone_number,
+                'email': user.email,
+                'tokens_balance': user.tokens_balance,
+                'is_phone_verified': user.phone_verified,
+            })
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class LogoutView(APIView):
+    """
+    API endpoint for user logout - blacklists the refresh token.
+    """
+    permission_classes = [IsAuthenticated]
+    
+    @swagger_auto_schema(
+        operation_description="Logout a user by blacklisting their refresh token",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'refresh': openapi.Schema(type=openapi.TYPE_STRING, description='Refresh token'),
+            },
+            required=['refresh']
+        ),
+        responses={
+            200: openapi.Response(
+                description="Logout successful",
+                schema=openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'message': openapi.Schema(type=openapi.TYPE_STRING),
+                    }
+                )
+            ),
+            400: "Bad request"
+        }
+    )
+    def post(self, request):
+        try:
+            refresh_token = request.data.get('refresh')
+            if not refresh_token:
+                return Response({"error": "Refresh token is required"}, status=status.HTTP_400_BAD_REQUEST)
+                
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            
+            return Response({"message": "Logout successful"}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
 
 class ChangePasswordView(UpdateAPIView):
     """

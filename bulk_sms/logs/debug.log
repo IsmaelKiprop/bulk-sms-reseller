@@ -344,3 +344,26 @@ INFO 2025-04-10 12:55:20,758 autoreload 139871 139798311841792 Watching for file
 INFO 2025-04-11 12:35:04,979 autoreload 43876 140180610437120 Watching for file changes with StatReloader
 INFO 2025-04-11 12:47:36,457 autoreload 43876 140180610437120 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
 INFO 2025-04-11 12:47:38,724 autoreload 48879 140291027062784 Watching for file changes with StatReloader
+INFO 2025-04-11 12:50:45,369 autoreload 50143 140127306452992 Watching for file changes with StatReloader
+INFO 2025-04-11 12:50:57,122 basehttp 50143 140127224460864 "POST /api/v1/register HTTP/1.1" 301 0
+WARNING 2025-04-11 12:50:57,379 log 50143 140127224460864 Method Not Allowed: /api/v1/register/
+WARNING 2025-04-11 12:50:57,380 basehttp 50143 140127224460864 "GET /api/v1/register/ HTTP/1.1" 405 40
+INFO 2025-04-11 12:51:14,107 basehttp 50143 140127224460864 "GET /api/v1/register HTTP/1.1" 301 0
+WARNING 2025-04-11 12:51:14,153 log 50143 140127224460864 Method Not Allowed: /api/v1/register/
+WARNING 2025-04-11 12:51:14,154 basehttp 50143 140127224460864 "GET /api/v1/register/ HTTP/1.1" 405 40
+INFO 2025-04-11 12:51:19,701 basehttp 50143 140127224460864 "GET /api/v1/register HTTP/1.1" 301 0
+WARNING 2025-04-11 12:51:19,800 log 50143 140127224460864 Method Not Allowed: /api/v1/register/
+WARNING 2025-04-11 12:51:19,801 basehttp 50143 140127224460864 "GET /api/v1/register/ HTTP/1.1" 405 40
+INFO 2025-04-11 12:51:25,787 basehttp 50143 140127224460864 "POST /api/v1/register HTTP/1.1" 301 0
+WARNING 2025-04-11 12:51:25,853 log 50143 140127224460864 Method Not Allowed: /api/v1/register/
+WARNING 2025-04-11 12:51:25,854 basehttp 50143 140127224460864 "GET /api/v1/register/ HTTP/1.1" 405 40
+INFO 2025-04-11 12:54:31,674 autoreload 50143 140127306452992 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-11 12:54:32,527 autoreload 51676 140303306563584 Watching for file changes with StatReloader
+INFO 2025-04-11 12:54:54,840 autoreload 51676 140303306563584 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-11 12:54:55,762 autoreload 51836 140414001291264 Watching for file changes with StatReloader
+INFO 2025-04-11 12:57:02,358 autoreload 51836 140414001291264 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/serializers.py changed, reloading.
+INFO 2025-04-11 12:57:03,024 autoreload 52692 140264427769856 Watching for file changes with StatReloader
+INFO 2025-04-11 13:03:03,398 autoreload 52692 140264427769856 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/serializers.py changed, reloading.
+INFO 2025-04-11 13:03:04,313 autoreload 55090 140235451162624 Watching for file changes with StatReloader
+INFO 2025-04-11 13:14:01,064 autoreload 55090 140235451162624 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/serializers.py changed, reloading.
+INFO 2025-04-11 13:14:04,296 autoreload 59362 139729467420672 Watching for file changes with StatReloader

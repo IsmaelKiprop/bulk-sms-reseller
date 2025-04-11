@@ -37,34 +37,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         data['is_phone_verified'] = user.phone_verified
         
         return data
-
-
-class LoginSerializer(serializers.Serializer):
-    """
-    Serializer for user login with company name and password.
-    """
-    company_name = serializers.CharField(required=True)
-    password = serializers.CharField(required=True, write_only=True, style={'input_type': 'password'})
-
-    def validate(self, attrs):
-        company_name = attrs.get('company_name')
-        password = attrs.get('password')
-
-        if company_name and password:
-            user = authenticate(request=self.context.get('request'),
-                                company_name=company_name, password=password)
-
-            if not user:
-                msg = 'Unable to log in with provided credentials.'
-                raise serializers.ValidationError(msg, code='authorization')
-        else:
-            msg = 'Must include "company_name" and "password".'
-            raise serializers.ValidationError(msg, code='authorization')
-
-        attrs['user'] = user
-        return attrs
-
-    
+  
 
 class UserSerializer(serializers.ModelSerializer):
     phone_number = PhoneNumberField()
@@ -189,6 +162,33 @@ class PhoneVerificationConfirmSerializer(serializers.Serializer):
             raise serializers.ValidationError({"otp": "OTP has expired. Please request a new one."})
         
         return attrs
+
+
+class LoginSerializer(serializers.Serializer):
+    """
+    Serializer for user login with company name and password.
+    """
+    company_name = serializers.CharField(required=True)
+    password = serializers.CharField(required=True, write_only=True, style={'input_type': 'password'})
+
+    def validate(self, attrs):
+        company_name = attrs.get('company_name')
+        password = attrs.get('password')
+
+        if company_name and password:
+            user = authenticate(request=self.context.get('request'),
+                                company_name=company_name, password=password)
+
+            if not user:
+                msg = 'Unable to log in with provided credentials.'
+                raise serializers.ValidationError(msg, code='authorization')
+        else:
+            msg = 'Must include "company_name" and "password".'
+            raise serializers.ValidationError(msg, code='authorization')
+
+        attrs['user'] = user
+        return attrs
+
 
 class ChangePasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True)
