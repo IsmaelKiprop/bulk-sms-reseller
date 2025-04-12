@@ -14,6 +14,8 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.generics import RetrieveUpdateAPIView
+from rest_framework_simplejwt.views import TokenRefreshView
+from rest_framework_simplejwt.tokens import AccessToken
 from datetime import timedelta
 from django.utils import timezone
 import logging
@@ -24,7 +26,7 @@ from utils.sms_gateways import (
     )
 from .serializers import (
     CustomTokenObtainPairSerializer, RegistrationSerializer, EmailVerificationRequestSerializer, 
-    EmailVerificationConfirmSerializer, UserSerializer,
+    EmailVerificationConfirmSerializer, UserSerializer, TokenRefreshSerializer,
     ChangePasswordSerializer, ResetPasswordRequestSerializer, ResetPasswordConfirmSerializer,
     UserProfileUpdateSerializer, PhoneBookSerializer, ContactSerializer, 
     SMSCampaignSerializer, PaymentSerializer, SMSTemplateSerializer,
@@ -108,6 +110,62 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             'is_email_verified': user.email_verified,
         })
 
+        return response
+
+
+class CustomTokenRefreshView(TokenRefreshView):
+    """
+    Custom token refresh view that preserves user information in the new access token.
+    """
+    def post(self, request, *args, **kwargs):
+        # First, get the standard response from the parent class
+        response = super().post(request, *args, **kwargs)
+        
+        # Get the refresh token from the cookie
+        refresh_token = request.COOKIES.get('refresh_token')
+        
+        if refresh_token:
+            # Get the new access token from the response
+            new_access_token_str = response.data.get('access')
+            
+            if new_access_token_str:
+                # Decode the old access token to get user information
+                old_access_token_str = request.COOKIES.get('access_token')
+                
+                if old_access_token_str:
+                    try:
+                        # Parse the old token to get the claims
+                        old_token = AccessToken(old_access_token_str)
+                        
+                        # Create a new token object from the string
+                        new_token = AccessToken(new_access_token_str)
+                        
+                        # Copy user information from old token to new token
+                        for claim in ['user_id', 'company_name', 'phone_number', 'email', 
+                                     'tokens_balance', 'is_staff', 'is_email_verified']:
+                            if claim in old_token:
+                                new_token[claim] = old_token[claim]
+                        
+                        # Set the new access token in HttpOnly cookie
+                        access_token_expiry = timedelta(minutes=15)  # 15 minutes
+                        
+                        response.set_cookie(
+                            'access_token',
+                            str(new_token),
+                            httponly=True,
+                            secure=True,  # Ensure this is True in production (HTTPS)
+                            samesite='Strict',
+                            max_age=int(access_token_expiry.total_seconds())
+                        )
+                        
+                        # Replace response data with success message
+                        response.data = {
+                            'message': 'Token refreshed successfully.'
+                        }
+                    except Exception as e:
+                        # If there's an error processing the token, log it but continue
+                        logger.error(f"Error copying claims during token refresh: {str(e)}")
+        
         return response
 
 
@@ -343,9 +401,10 @@ class LoginView(APIView):
                 'company_name': user.company_name,
                 'email': user.email,
                 'phone_number': user.phone_number,
-                'tokens_balance': user.tokens_balance,
+                'tokens_balance': user.tokens_balance,  # also removed space in key name
                 'is_email_verified': user.email_verified,
             })
+
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

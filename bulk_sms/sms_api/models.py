@@ -52,7 +52,7 @@ class PhoneBook(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='phonebooks')
     name = models.CharField(max_length=100)
-    metadata = models.JSONField(default=dict, blank=True)
+    description = models.CharField(max_length=255, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -62,7 +62,7 @@ class Contact(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     phonebook = models.ForeignKey(PhoneBook, on_delete=models.CASCADE, related_name='contacts')
     phone_number = models.CharField(max_length=20)
-    metadata = models.JSONField(default=dict, blank=True)
+    last_message_sent = models.DateTimeField(blank=True, null=True)  # New field
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -130,11 +130,19 @@ class Payment(models.Model):
 
 class SMSTemplate(models.Model):
     """Reusable message templates"""
+    CATEGORY_CHOICES = [
+        ('onboarding', 'Onboarding'),
+        ('transactional', 'Transactional'),
+        ('reminder', 'Reminder'),
+        ('marketing', 'Marketing'),
+        ('other', 'Other'),
+    ]
+    
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='templates')
     name = models.CharField(max_length=100)
     content = models.TextField()
-    metadata = models.JSONField(default=dict, blank=True)
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='other')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

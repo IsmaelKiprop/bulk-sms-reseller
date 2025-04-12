@@ -967,3 +967,76 @@ INFO 2025-04-12 14:39:51,292 autoreload 296459 140499275038720 /home/ismael/bulk
 INFO 2025-04-12 14:39:51,946 autoreload 296479 140688913367040 Watching for file changes with StatReloader
 INFO 2025-04-12 14:40:11,363 autoreload 296479 140688913367040 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
 INFO 2025-04-12 14:40:12,078 autoreload 296487 140613222187008 Watching for file changes with StatReloader
+INFO 2025-04-12 14:41:08,257 autoreload 296525 139690444451840 Watching for file changes with StatReloader
+INFO 2025-04-12 14:47:44,048 basehttp 296525 139690364626496 "POST /api/v1/login/ HTTP/1.1" 200 766
+INFO 2025-04-12 15:14:47,886 autoreload 296525 139690444451840 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-12 15:14:48,510 autoreload 297341 139869849145344 Watching for file changes with StatReloader
+INFO 2025-04-12 15:15:59,231 autoreload 297341 139869849145344 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-12 15:15:59,840 autoreload 297363 139732458663936 Watching for file changes with StatReloader
+INFO 2025-04-12 15:20:30,593 autoreload 297363 139732458663936 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-12 15:20:31,181 autoreload 297484 140510144847872 Watching for file changes with StatReloader
+INFO 2025-04-12 15:22:49,073 autoreload 297484 140510144847872 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/serializers.py changed, reloading.
+INFO 2025-04-12 15:22:49,821 autoreload 297542 140307413295104 Watching for file changes with StatReloader
+INFO 2025-04-12 15:23:11,216 autoreload 297557 140616158150656 Watching for file changes with StatReloader
+INFO 2025-04-12 15:24:07,485 basehttp 297557 140616077928000 "POST /api/v1/register/ HTTP/1.1" 201 239
+WARNING 2025-04-12 15:25:11,073 log 297557 140616065336896 Bad Request: /api/v1/login/
+WARNING 2025-04-12 15:25:11,073 basehttp 297557 140616065336896 "POST /api/v1/login/ HTTP/1.1" 400 91
+INFO 2025-04-12 15:27:27,280 basehttp 297557 140616056944192 "POST /api/v1/login/ HTTP/1.1" 200 765
+INFO 2025-04-12 16:33:41,415 autoreload 297557 140616158150656 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/models.py changed, reloading.
+INFO 2025-04-12 16:33:42,264 autoreload 299270 140208459952128 Watching for file changes with StatReloader
+WARNING 2025-04-12 19:26:43,999 log 299270 140208371652160 Not Found: /accounts/login/
+WARNING 2025-04-12 19:26:44,001 basehttp 299270 140208371652160 "GET /accounts/login/?next=/swagger/ HTTP/1.1" 404 179
+INFO 2025-04-12 19:27:21,659 basehttp 299270 140208380044864 "GET /admin/login/?next=/swagger/ HTTP/1.1" 200 4189
+WARNING 2025-04-12 19:27:21,720 log 299270 140208380044864 Not Found: /static/admin/css/base.css
+WARNING 2025-04-12 19:27:21,721 basehttp 299270 140208380044864 "GET /static/admin/css/base.css HTTP/1.1" 404 179
+WARNING 2025-04-12 19:27:21,755 log 299270 140208380044864 Not Found: /static/admin/css/dark_mode.css
+WARNING 2025-04-12 19:27:21,760 log 299270 140208371652160 Not Found: /static/admin/css/nav_sidebar.css
+WARNING 2025-04-12 19:27:21,762 basehttp 299270 140208380044864 "GET /static/admin/css/dark_mode.css HTTP/1.1" 404 179
+WARNING 2025-04-12 19:27:21,763 basehttp 299270 140208371652160 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 404 179
+WARNING 2025-04-12 19:27:21,771 log 299270 140208362210880 Not Found: /static/admin/css/login.css
+WARNING 2025-04-12 19:27:21,782 log 299270 140208353818176 Not Found: /static/admin/css/responsive.css
+WARNING 2025-04-12 19:27:21,783 basehttp 299270 140208362210880 "GET /static/admin/css/login.css HTTP/1.1" 404 179
+WARNING 2025-04-12 19:27:21,784 basehttp 299270 140208353818176 "GET /static/admin/css/responsive.css HTTP/1.1" 404 179
+WARNING 2025-04-12 19:27:23,505 log 299270 140208371652160 Not Found: /static/admin/js/theme.js
+WARNING 2025-04-12 19:27:23,508 basehttp 299270 140208371652160 "GET /static/admin/js/theme.js HTTP/1.1" 404 179
+WARNING 2025-04-12 19:27:23,542 log 299270 140208345425472 Not Found: /static/admin/js/nav_sidebar.js
+WARNING 2025-04-12 19:27:23,543 basehttp 299270 140208345425472 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 404 179
+INFO 2025-04-12 19:27:50,662 basehttp 299270 140208380044864 "GET /swagger/ HTTP/1.1" 200 2215
+WARNING 2025-04-12 19:27:52,020 log 299270 140208380044864 Not Found: /static/drf-yasg/style.css
+WARNING 2025-04-12 19:27:52,022 basehttp 299270 140208380044864 "GET /static/drf-yasg/style.css HTTP/1.1" 404 179
+WARNING 2025-04-12 19:27:52,060 log 299270 140208380044864 Not Found: /static/drf-yasg/swagger-ui-dist/swagger-ui.css
+WARNING 2025-04-12 19:27:52,061 basehttp 299270 140208380044864 "GET /static/drf-yasg/swagger-ui-dist/swagger-ui.css HTTP/1.1" 404 179
+WARNING 2025-04-12 19:27:52,068 log 299270 140208371652160 Not Found: /static/drf-yasg/swagger-ui-dist/swagger-ui-bundle.js
+WARNING 2025-04-12 19:27:52,069 basehttp 299270 140208371652160 "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-bundle.js HTTP/1.1" 404 179
+WARNING 2025-04-12 19:27:52,090 log 299270 140208345425472 Not Found: /static/drf-yasg/insQ.min.js
+WARNING 2025-04-12 19:27:52,095 log 299270 140208353818176 Not Found: /static/drf-yasg/immutable.min.js
+WARNING 2025-04-12 19:27:52,107 log 299270 140208362210880 Not Found: /static/drf-yasg/swagger-ui-dist/swagger-ui-standalone-preset.js
+WARNING 2025-04-12 19:27:52,156 basehttp 299270 140208345425472 "GET /static/drf-yasg/insQ.min.js HTTP/1.1" 404 179
+WARNING 2025-04-12 19:27:52,156 basehttp 299270 140208353818176 "GET /static/drf-yasg/immutable.min.js HTTP/1.1" 404 179
+WARNING 2025-04-12 19:27:52,158 basehttp 299270 140208362210880 "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-standalone-preset.js HTTP/1.1" 404 179
+WARNING 2025-04-12 19:27:52,166 log 299270 140207999415872 Not Found: /static/drf-yasg/swagger-ui-init.js
+WARNING 2025-04-12 19:27:52,166 basehttp 299270 140207999415872 "GET /static/drf-yasg/swagger-ui-init.js HTTP/1.1" 404 179
+WARNING 2025-04-12 19:27:52,238 log 299270 140207999415872 Not Found: /static/drf-yasg/swagger-ui-dist/favicon-32x32.png
+WARNING 2025-04-12 19:27:52,239 basehttp 299270 140207999415872 "GET /static/drf-yasg/swagger-ui-dist/favicon-32x32.png HTTP/1.1" 404 179
+WARNING 2025-04-12 19:27:52,559 log 299270 140207999415872 Not Found: /static/drf-yasg/swagger-ui-dist/favicon-32x32.png
+WARNING 2025-04-12 19:27:52,561 basehttp 299270 140207999415872 "GET /static/drf-yasg/swagger-ui-dist/favicon-32x32.png HTTP/1.1" 404 179
+INFO 2025-04-12 19:27:56,441 basehttp 299270 140208362210880 "GET /swagger/ HTTP/1.1" 200 2215
+WARNING 2025-04-12 19:27:56,482 log 299270 140208362210880 Not Found: /static/drf-yasg/style.css
+WARNING 2025-04-12 19:27:56,483 basehttp 299270 140208362210880 "GET /static/drf-yasg/style.css HTTP/1.1" 404 179
+WARNING 2025-04-12 19:27:56,521 log 299270 140208362210880 Not Found: /static/drf-yasg/swagger-ui-dist/swagger-ui.css
+WARNING 2025-04-12 19:27:56,525 log 299270 140207999415872 Not Found: /static/drf-yasg/swagger-ui-dist/swagger-ui-bundle.js
+WARNING 2025-04-12 19:27:56,527 basehttp 299270 140207999415872 "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-bundle.js HTTP/1.1" 404 179
+WARNING 2025-04-12 19:27:56,528 basehttp 299270 140208362210880 "GET /static/drf-yasg/swagger-ui-dist/swagger-ui.css HTTP/1.1" 404 179
+WARNING 2025-04-12 19:27:56,556 log 299270 140208345425472 Not Found: /static/drf-yasg/swagger-ui-dist/swagger-ui-standalone-preset.js
+WARNING 2025-04-12 19:27:56,557 basehttp 299270 140208345425472 "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-standalone-preset.js HTTP/1.1" 404 179
+WARNING 2025-04-12 19:27:56,567 log 299270 140208353818176 Not Found: /static/drf-yasg/swagger-ui-init.js
+WARNING 2025-04-12 19:27:56,569 basehttp 299270 140208353818176 "GET /static/drf-yasg/swagger-ui-init.js HTTP/1.1" 404 179
+WARNING 2025-04-12 19:27:56,580 log 299270 140208380044864 Not Found: /static/drf-yasg/immutable.min.js
+WARNING 2025-04-12 19:27:56,583 log 299270 140208371652160 Not Found: /static/drf-yasg/insQ.min.js
+WARNING 2025-04-12 19:27:56,585 basehttp 299270 140208380044864 "GET /static/drf-yasg/immutable.min.js HTTP/1.1" 404 179
+WARNING 2025-04-12 19:27:56,586 basehttp 299270 140208371652160 "GET /static/drf-yasg/insQ.min.js HTTP/1.1" 404 179
+WARNING 2025-04-12 19:27:56,857 log 299270 140208371652160 Not Found: /static/drf-yasg/swagger-ui-dist/favicon-32x32.png
+WARNING 2025-04-12 19:27:56,859 basehttp 299270 140208371652160 "GET /static/drf-yasg/swagger-ui-dist/favicon-32x32.png HTTP/1.1" 404 179
+INFO 2025-04-12 19:31:30,549 autoreload 302794 140379745370112 Watching for file changes with StatReloader
+INFO 2025-04-12 19:46:45,999 autoreload 302794 140379745370112 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/models.py changed, reloading.
+INFO 2025-04-12 19:46:47,397 autoreload 304920 140139325083648 Watching for file changes with StatReloader
