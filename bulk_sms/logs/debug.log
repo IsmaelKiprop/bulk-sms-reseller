@@ -824,3 +824,17 @@ INFO 2025-04-12 12:27:42,151 autoreload 277359 139737856045056 /home/ismael/bulk
 INFO 2025-04-12 12:27:42,984 autoreload 277955 140085442203648 Watching for file changes with StatReloader
 INFO 2025-04-12 12:27:45,656 autoreload 277955 140085442203648 /home/ismael/bulk-sms-reseller/bulk_sms/bulk_sms/settings.py changed, reloading.
 INFO 2025-04-12 12:27:46,384 autoreload 277970 139645235036160 Watching for file changes with StatReloader
+INFO 2025-04-12 12:28:58,694 autoreload 278287 139700959993856 Watching for file changes with StatReloader
+INFO 2025-04-12 12:51:33,039 autoreload 284074 140203100749824 Watching for file changes with StatReloader
+INFO 2025-04-12 12:54:00,056 autoreload 284074 140203100749824 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/serializers.py changed, reloading.
+INFO 2025-04-12 12:54:01,011 autoreload 284706 140139656732672 Watching for file changes with StatReloader
+INFO 2025-04-12 12:54:19,045 autoreload 284706 140139656732672 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/serializers.py changed, reloading.
+INFO 2025-04-12 12:54:19,962 autoreload 284795 140331897663488 Watching for file changes with StatReloader
+INFO 2025-04-12 12:55:04,963 autoreload 284795 140331897663488 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/serializers.py changed, reloading.
+INFO 2025-04-12 12:55:05,721 autoreload 284988 140007180537856 Watching for file changes with StatReloader
+INFO 2025-04-12 12:55:14,371 autoreload 284988 140007180537856 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-12 12:55:15,204 autoreload 285039 140519851012096 Watching for file changes with StatReloader
+INFO 2025-04-12 12:55:59,901 autoreload 285039 140519851012096 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/serializers.py changed, reloading.
+INFO 2025-04-12 12:56:00,544 autoreload 285231 140381507190784 Watching for file changes with StatReloader
+INFO 2025-04-12 12:58:12,050 autoreload 285231 140381507190784 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-12 12:58:12,911 autoreload 285799 140531706699776 Watching for file changes with StatReloader

@@ -7,10 +7,10 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.utils.translation import gettext_lazy as _
 import uuid
 
-
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    phone_number = models.CharField(max_length=20, blank=True, null=True)
+    # Make phone_number required and unique, with max length to accommodate country codes
+    phone_number = models.CharField(max_length=20, unique=True)
     company_name = models.CharField(max_length=255, unique=True, blank=True, null=True)
     tokens_balance = models.IntegerField(default=0)
     metadata = models.JSONField(default=dict, blank=True)
@@ -35,7 +35,7 @@ class User(AbstractUser):
     
     # Set company_name as the username field for authentication
     USERNAME_FIELD = 'company_name'
-    REQUIRED_FIELDS = ['email']  # Email is now required
+    REQUIRED_FIELDS = ['email', 'phone_number']  # Both email and phone_number are required
     
     def __str__(self):
         return str(self.company_name)
@@ -45,21 +45,6 @@ class User(AbstractUser):
         if not self.username:
             self.username = str(self.company_name)
         super().save(*args, **kwargs)
-    
-    groups = models.ManyToManyField(
-        Group,
-        related_name='custom_user_set',  # Unique name to avoid clashes
-        blank=True,
-        help_text='The groups this user belongs to.',
-        verbose_name='groups',
-    )
-    user_permissions = models.ManyToManyField(
-        Permission,
-        related_name='custom_user_set',  # Unique name to avoid clashes
-        blank=True,
-        help_text='Specific permissions for this user.',
-        verbose_name='user permissions',
-    )
 
 
 class PhoneBook(models.Model):

@@ -13,6 +13,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.debug import sensitive_post_parameters
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.generics import RetrieveUpdateAPIView
 # from utils.sms_gateways import generate_otp, send_otp_sms
 import logging
 from .serializers import (
@@ -86,6 +87,7 @@ class RegisterView(APIView):
                         'message': openapi.Schema(type=openapi.TYPE_STRING),
                         'user_id': openapi.Schema(type=openapi.TYPE_STRING),
                         'email': openapi.Schema(type=openapi.TYPE_STRING),
+                        'phone_number': openapi.Schema(type=openapi.TYPE_STRING),
                         'verification_email_sent': openapi.Schema(type=openapi.TYPE_BOOLEAN),
                     }
                 )
@@ -94,6 +96,15 @@ class RegisterView(APIView):
         }
     )
     def post(self, request):
+        # Pre-process phone number if provided
+        if 'phone_number' in request.data:
+            is_valid, formatted_number, error = validate_african_phone(request.data['phone_number'])
+            if not is_valid:
+                return Response({'phone_number': [error]}, status=status.HTTP_400_BAD_REQUEST)
+            
+            # Update the request data with formatted number
+            request.data['phone_number'] = formatted_number
+        
         serializer = RegistrationSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
@@ -115,6 +126,7 @@ class RegisterView(APIView):
                 'message': 'User registered successfully. Please check your email for verification instructions.',
                 'user_id': str(user.id),
                 'email': user.email,
+                'phone_number': user.phone_number,
                 'verification_email_sent': success
             }, status=status.HTTP_201_CREATED)
         
@@ -375,11 +387,13 @@ class ChangePasswordView(UpdateAPIView):
             # Set new password
             user.set_password(serializer.data.get("new_password"))
             user.save()
+            
             return Response({
                 'message': 'Password updated successfully'
             }, status=status.HTTP_200_OK)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class ResetPasswordRequestView(APIView):
     """
@@ -388,16 +402,15 @@ class ResetPasswordRequestView(APIView):
     permission_classes = [AllowAny]
     
     @swagger_auto_schema(
-        operation_description="Request password reset OTP",
+        operation_description="Request password reset token",
         request_body=ResetPasswordRequestSerializer,
         responses={
             200: openapi.Response(
-                description="OTP for password reset sent",
+                description="Password reset email sent",
                 schema=openapi.Schema(
                     type=openapi.TYPE_OBJECT,
                     properties={
                         'message': openapi.Schema(type=openapi.TYPE_STRING),
-                        'otp_sent': openapi.Schema(type=openapi.TYPE_BOOLEAN),
                     }
                 )
             ),
@@ -407,38 +420,47 @@ class ResetPasswordRequestView(APIView):
     def post(self, request):
         serializer = ResetPasswordRequestSerializer(data=request.data)
         if serializer.is_valid():
-            phone_number = serializer.validated_data['phone_number']
+            email = serializer.validated_data['email']
             
             try:
-                user = User.objects.get(phone_number=phone_number)
+                user = User.objects.get(email=email)
                 
-                # Generate OTP for password reset
-                otp = generate_otp()
-                user.otp = otp
-                user.otp_created_at = timezone.now()
+                # Check if email is verified
+                if not user.email_verified:
+                    return Response({
+                        'message': 'Please verify your email before requesting a password reset.'
+                    }, status=status.HTTP_400_BAD_REQUEST)
+                
+                # Generate reset token
+                token = generate_verification_token()
+                user.verification_token = token
+                user.token_created_at = timezone.now()
+                user.token_expiration = timezone.now() + timedelta(hours=24)
                 user.save()
                 
-                # Send OTP via SMS
-                success, message = send_otp_sms(phone_number, otp)
+                # Send password reset email
+                success, message = send_password_reset_email(user, token)
                 
                 if not success:
-                    logger.error(f"Failed to send password reset OTP to {phone_number}: {message}")
+                    logger.error(f"Failed to send password reset email to {email}: {message}")
                 
+                # For security, don't reveal if the email was sent successfully
                 return Response({
-                    'message': 'OTP for password reset sent successfully.',
-                    'otp_sent': success
+                    'message': 'If an account with this email exists, a password reset link has been sent.'
                 }, status=status.HTTP_200_OK)
+            
             except User.DoesNotExist:
                 # For security, don't reveal if user exists or not
                 return Response({
-                    'message': 'If a user with this phone number exists, an OTP has been sent.'
+                    'message': 'If an account with this email exists, a password reset link has been sent.'
                 }, status=status.HTTP_200_OK)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class ResetPasswordConfirmView(APIView):
     """
-    API endpoint for confirming password reset with OTP.
+    API endpoint for confirming password reset with token.
     """
     permission_classes = [AllowAny]
     
@@ -447,7 +469,7 @@ class ResetPasswordConfirmView(APIView):
         return super().dispatch(*args, **kwargs)
     
     @swagger_auto_schema(
-        operation_description="Confirm password reset with OTP",
+        operation_description="Confirm password reset with token",
         request_body=ResetPasswordConfirmSerializer,
         responses={
             200: openapi.Response(
@@ -459,57 +481,107 @@ class ResetPasswordConfirmView(APIView):
                     }
                 )
             ),
-            400: "Invalid OTP or Bad request"
+            400: "Invalid token or Bad request"
         }
     )
     def post(self, request):
         serializer = ResetPasswordConfirmSerializer(data=request.data)
         if serializer.is_valid():
-            phone_number = serializer.validated_data['phone_number']
+            token = serializer.validated_data['token']
             new_password = serializer.validated_data['new_password']
             
-            user = User.objects.get(phone_number=phone_number)
-            user.set_password(new_password)
-            user.otp = None  # Clear the OTP
-            user.otp_created_at = None
-            user.save()
-            
-            return Response({
-                'message': 'Password has been reset successfully.'
-            }, status=status.HTTP_200_OK)
+            try:
+                user = User.objects.get(verification_token=token)
+                
+                # Check if token is expired
+                if not is_token_valid(user):
+                    return Response({
+                        'message': 'Password reset token has expired. Please request a new one.'
+                    }, status=status.HTTP_400_BAD_REQUEST)
+                
+                # Set new password
+                user.set_password(new_password)
+                
+                # Clear the token
+                user.verification_token = None
+                user.token_created_at = None
+                user.token_expiration = None
+                user.save()
+                
+                return Response({
+                    'message': 'Password has been reset successfully.'
+                }, status=status.HTTP_200_OK)
+                
+            except User.DoesNotExist:
+                return Response({
+                    'message': 'Invalid password reset token.'
+                }, status=status.HTTP_400_BAD_REQUEST)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class UserProfileView(APIView):
+class UserProfileView(RetrieveUpdateAPIView):
     """
     API endpoint for retrieving and updating user profile.
     """
     permission_classes = [IsAuthenticated]
+    serializer_class = UserProfileUpdateSerializer
+    
+    def get_object(self):
+        return self.request.user
     
     @swagger_auto_schema(
-        operation_description="Get user profile information",
+        operation_description="Get user profile",
         responses={
-            200: UserSerializer
+            200: UserProfileUpdateSerializer,
         }
     )
-    def get(self, request):
-        serializer = UserSerializer(request.user)
-        return Response(serializer.data)
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
     
     @swagger_auto_schema(
-        operation_description="Update user profile information",
+        operation_description="Update user profile",
         request_body=UserProfileUpdateSerializer,
         responses={
-            200: UserSerializer,
+            200: openapi.Response(
+                description="Profile updated successfully",
+                schema=openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'message': openapi.Schema(type=openapi.TYPE_STRING),
+                        'email_changed': openapi.Schema(type=openapi.TYPE_BOOLEAN),
+                        'profile': UserProfileUpdateSerializer,
+                    }
+                )
+            ),
             400: "Bad request"
         }
     )
-    def put(self, request):
-        serializer = UserProfileUpdateSerializer(request.user, data=request.data, context={'request': request})
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def update(self, request, *args, **kwargs):
+        # Store current email to check if it changes
+        current_email = request.user.email
+        
+        # Process the update
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        
+        # Check if email was changed
+        email_changed = current_email != instance.email
+        
+        if email_changed:
+            return Response({
+                'message': 'Profile updated successfully. Please verify your new email address.',
+                'email_changed': True,
+                'profile': serializer.data
+            })
+        else:
+            return Response({
+                'message': 'Profile updated successfully.',
+                'email_changed': False,
+                'profile': serializer.data
+            })
 
 
 class UserViewSet(viewsets.ModelViewSet):

@@ -13,8 +13,101 @@ from .models import (
     SMSMessage, Payment, SMSTemplate, WebhookEndpoint
 )
 
-
 User = get_user_model()
+from django.core.validators import RegexValidator
+from django.utils.translation import gettext_lazy as _
+
+# Create custom validator for African phone numbers
+class AfricanPhoneNumberValidator:
+    """
+    Validator to ensure phone numbers start with valid African country codes,
+    with special handling for Kenya as the default.
+    """
+    
+    def __init__(self):
+        self.message = _('Phone number must start with a valid African country code (e.g., +254 for Kenya).')
+        
+        # List of common African country codes
+        self.african_codes = [
+            '+20',  # Egypt
+            '+212', # Morocco
+            '+213', # Algeria
+            '+216', # Tunisia
+            '+218', # Libya
+            '+220', # Gambia
+            '+221', # Senegal
+            '+222', # Mauritania
+            '+223', # Mali
+            '+224', # Guinea
+            '+225', # Côte d'Ivoire
+            '+226', # Burkina Faso
+            '+227', # Niger
+            '+228', # Togo
+            '+229', # Benin
+            '+230', # Mauritius
+            '+231', # Liberia
+            '+232', # Sierra Leone
+            '+233', # Ghana
+            '+234', # Nigeria
+            '+235', # Chad
+            '+236', # Central African Republic
+            '+237', # Cameroon
+            '+238', # Cape Verde
+            '+239', # São Tomé and Príncipe
+            '+240', # Equatorial Guinea
+            '+241', # Gabon
+            '+242', # Republic of the Congo
+            '+243', # Democratic Republic of the Congo
+            '+244', # Angola
+            '+245', # Guinea-Bissau
+            '+246', # Diego Garcia
+            '+247', # Ascension Island
+            '+248', # Seychelles
+            '+249', # Sudan
+            '+250', # Rwanda
+            '+251', # Ethiopia
+            '+252', # Somalia
+            '+253', # Djibouti
+            '+254', # Kenya (default)
+            '+255', # Tanzania
+            '+256', # Uganda
+            '+257', # Burundi
+            '+258', # Mozambique
+            '+260', # Zambia
+            '+261', # Madagascar
+            '+262', # Réunion
+            '+263', # Zimbabwe
+            '+264', # Namibia
+            '+265', # Malawi
+            '+266', # Lesotho
+            '+267', # Botswana
+            '+268', # Eswatini
+            '+269', # Comoros
+            '+27',  # South Africa
+            '+290', # Saint Helena
+            '+291', # Eritrea
+            '+297', # Aruba
+            '+298', # Faroe Islands
+            '+299', # Greenland
+        ]
+    
+    def __call__(self, value):
+        # Check if value starts with any of the valid country codes
+        if not any(value.startswith(code) for code in self.african_codes):
+            raise ValidationError(self.message)
+    
+    def __eq__(self, other):
+        return (
+            isinstance(other, AfricanPhoneNumberValidator) and
+            self.message == other.message
+        )
+
+# Format validator to ensure phone number format is valid
+phone_regex = RegexValidator(
+    regex=r'^\+[0-9]{1,3}[0-9]{9,12}$',
+    message="Phone number must be in format: '+254XXXXXXXXX'. Up to 15 digits allowed."
+)
+
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     """
@@ -57,9 +150,14 @@ class UserSerializer(serializers.ModelSerializer):
 
 class RegistrationSerializer(serializers.ModelSerializer):
     """
-    Serializer for user registration with validation for email, company name, 
-    password, and optional metadata.
+    Serializer for user registration with validation for mandatory phone number,
+    email, company name, password, and optional metadata.
     """
+    phone_number = serializers.CharField(
+        required=True, 
+        max_length=20,
+        validators=[phone_regex, AfricanPhoneNumberValidator()]
+    )
     company_name = serializers.CharField(required=True, max_length=255)
     email = serializers.EmailField(required=True)
     password = serializers.CharField(
@@ -69,21 +167,28 @@ class RegistrationSerializer(serializers.ModelSerializer):
         validators=[validate_password]
     )
     metadata = serializers.JSONField(required=False, default=dict)
-    phone_number = PhoneNumberField(required=False)
     
     class Meta:
         model = User
-        fields = ['email', 'password', 'company_name', 'phone_number', 'metadata']
+        fields = ['phone_number', 'password', 'company_name', 'email', 'metadata']
         extra_kwargs = {
             'password': {'write_only': True},
         }
     
-    def validate_email(self, value):
+    def validate_phone_number(self, value):
         """
-        Validate that the email is not already registered.
+        Validate that the phone number is not already registered
+        and has proper format with country code.
         """
-        if User.objects.filter(email=value).exists():
-            raise serializers.ValidationError("This email is already registered.")
+        # Check if phone number is already registered
+        if User.objects.filter(phone_number=value).exists():
+            raise serializers.ValidationError("This phone number is already registered.")
+        
+        # Ensure Kenya is the default if no country code is specified
+        if not value.startswith('+'):
+            # Add Kenya's country code if missing
+            value = f"+254{value}" if not value.startswith('0') else f"+254{value[1:]}"
+        
         return value
     
     def validate_company_name(self, value):
@@ -94,14 +199,20 @@ class RegistrationSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("This company name is already registered.")
         return value
     
+    def validate_email(self, value):
+        """
+        Validate that the email is not already registered.
+        """
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("This email is already registered.")
+        return value
+    
     def validate_metadata(self, value):
         """
         Validate the metadata structure if provided.
         """
         if not isinstance(value, dict):
             raise serializers.ValidationError("Metadata must be a JSON object.")
-        
-        # Add basic validation for expected metadata structure if needed
         return value
     
     def create(self, validated_data):
@@ -117,7 +228,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
         # Create base metadata structure
         default_metadata = {
             "preferences": {
-                "timezone": "Africa/Nairobi",
+                "timezone": "Africa/Nairobi",  # Default to Kenya timezone
                 "notifications": {
                     "low_balance": 0,
                     "delivery_reports": False
@@ -199,7 +310,6 @@ class LoginSerializer(serializers.Serializer):
         
         raise serializers.ValidationError('Must include "company_name" and "password"', code='authorization')
 
-
 class ChangePasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True)
     new_password = serializers.CharField(required=True, validators=[validate_password])
@@ -210,12 +320,13 @@ class ChangePasswordSerializer(serializers.Serializer):
             raise serializers.ValidationError({"new_password": "Password fields didn't match."})
         return attrs
 
+
 class ResetPasswordRequestSerializer(serializers.Serializer):
-    phone_number = PhoneNumberField(required=True)
+    email = serializers.EmailField(required=True)
+
 
 class ResetPasswordConfirmSerializer(serializers.Serializer):
-    phone_number = PhoneNumberField(required=True)
-    otp = serializers.CharField(required=True, min_length=6, max_length=6)
+    token = serializers.CharField(required=True, min_length=64, max_length=64)
     new_password = serializers.CharField(required=True, validators=[validate_password])
     confirm_password = serializers.CharField(required=True)
     
@@ -223,34 +334,68 @@ class ResetPasswordConfirmSerializer(serializers.Serializer):
         if attrs['new_password'] != attrs['confirm_password']:
             raise serializers.ValidationError({"new_password": "Password fields didn't match."})
         
-        phone_number = attrs.get('phone_number')
-        otp = attrs.get('otp')
-        
-        try:
-            user = User.objects.get(phone_number=phone_number)
-        except User.DoesNotExist:
-            raise serializers.ValidationError({"phone_number": "User with this phone number does not exist."})
-        
-        if not user.otp or user.otp != otp:
-            raise serializers.ValidationError({"otp": "Invalid OTP."})
-        
-        if not is_otp_valid(user):
-            raise serializers.ValidationError({"otp": "OTP has expired. Please request a new one."})
-        
         return attrs
 
+
 class UserProfileUpdateSerializer(serializers.ModelSerializer):
-    phone_number = PhoneNumberField(required=True)
+    email = serializers.EmailField(required=True)
+    phone_number = serializers.CharField(
+        required=True, 
+        max_length=20,
+        validators=[phone_regex, AfricanPhoneNumberValidator()]
+    )
     
     class Meta:
         model = User
-        fields = ['phone_number', 'company_name']
+        fields = ['email', 'phone_number', 'company_name']
+    
+    def validate_email(self, value):
+        user = self.context['request'].user
+        if User.objects.exclude(pk=user.pk).filter(email=value).exists():
+            raise serializers.ValidationError("This email is already in use.")
+        
+        # If email is changed, it needs to be verified again
+        current_email = user.email
+        if value != current_email:
+            self.context['email_changed'] = True
+        
+        return value
     
     def validate_phone_number(self, value):
         user = self.context['request'].user
+        
+        # Ensure Kenya is the default if no country code is specified
+        if not value.startswith('+'):
+            # Add Kenya's country code if missing
+            value = f"+254{value}" if not value.startswith('0') else f"+254{value[1:]}"
+        
+        # Check if phone number is unique
         if User.objects.exclude(pk=user.pk).filter(phone_number=value).exists():
             raise serializers.ValidationError("This phone number is already in use.")
+        
         return value
+    
+    def update(self, instance, validated_data):
+        email_changed = False
+        if 'email' in validated_data and validated_data['email'] != instance.email:
+            email_changed = True
+        
+        # Update instance with validated data
+        instance = super().update(instance, validated_data)
+        
+        if email_changed:
+            # Mark email as unverified and generate new verification token
+            instance.email_verified = False
+            token = generate_verification_token()
+            instance.verification_token = token
+            instance.token_created_at = timezone.now()
+            instance.token_expiration = timezone.now() + timedelta(hours=24)
+            instance.save()
+            
+            # Send verification email
+            send_verification_email(instance, token)
+        
+        return instance
 
 
 class PhoneBookSerializer(serializers.ModelSerializer):
@@ -258,7 +403,7 @@ class PhoneBookSerializer(serializers.ModelSerializer):
         model = PhoneBook
         fields = ('id', 'name', 'metadata', 'created_at', 'updated_at')
         read_only_fields = ('id', 'created_at', 'updated_at')
-
+    
     def create(self, validated_data):
         validated_data['user'] = self.context['request'].user
         return super().create(validated_data)
