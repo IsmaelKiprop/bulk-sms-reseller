@@ -10,7 +10,7 @@ import uuid
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     # Make phone_number required and unique, with max length to accommodate country codes
-    phone_number = models.CharField(max_length=20, unique=True)
+    phone_number = models.CharField(max_length=20, unique=True, null=True)
     company_name = models.CharField(max_length=255, unique=True, blank=True, null=True)
     tokens_balance = models.IntegerField(default=0)
     metadata = models.JSONField(default=dict, blank=True)
@@ -25,7 +25,7 @@ class User(AbstractUser):
     )
     
     # Make email required and unique
-    email = models.EmailField(unique=True)
+    email = models.EmailField(unique=True, null=True)
     
     # Email verification fields
     email_verified = models.BooleanField(default=False)
