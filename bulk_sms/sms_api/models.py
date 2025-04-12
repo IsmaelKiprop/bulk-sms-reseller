@@ -12,10 +12,9 @@ class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     phone_number = models.CharField(max_length=20, blank=True, null=True)
     company_name = models.CharField(max_length=255, unique=True, blank=True, null=True)
-
     tokens_balance = models.IntegerField(default=0)
     metadata = models.JSONField(default=dict, blank=True)
-
+    
     # Make username not required
     username = models.CharField(
         max_length=150,
@@ -25,27 +24,28 @@ class User(AbstractUser):
         help_text=_('Optional. 150 characters or fewer.')
     )
     
-    # Make email not required
-    email = models.EmailField(blank=True, null=True)
+    # Make email required and unique
+    email = models.EmailField(unique=True)
     
-    # OTP fields for phone verification
-    phone_verified = models.BooleanField(default=False)
-    otp = models.CharField(max_length=6, blank=True, null=True)
-    otp_created_at = models.DateTimeField(blank=True, null=True)
+    # Email verification fields
+    email_verified = models.BooleanField(default=False)
+    verification_token = models.CharField(max_length=64, blank=True, null=True)
+    token_created_at = models.DateTimeField(blank=True, null=True)
+    token_expiration = models.DateTimeField(blank=True, null=True)
     
-    # Set phone number as the username field for authentication
+    # Set company_name as the username field for authentication
     USERNAME_FIELD = 'company_name'
-    REQUIRED_FIELDS = []  # Empty because company_name is the USERNAME_FIELD
+    REQUIRED_FIELDS = ['email']  # Email is now required
     
     def __str__(self):
         return str(self.company_name)
     
     def save(self, *args, **kwargs):
-        # If username is not provided, use phone number as username
+        # If username is not provided, use company_name as username
         if not self.username:
             self.username = str(self.company_name)
         super().save(*args, **kwargs)
-
+    
     groups = models.ManyToManyField(
         Group,
         related_name='custom_user_set',  # Unique name to avoid clashes

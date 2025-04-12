@@ -1,5 +1,4 @@
 # utils/sms_gateways.py
-
 import requests
 import json
 import os
@@ -9,64 +8,61 @@ from django.conf import settings
 from django.utils import timezone
 from datetime import timedelta
 import random
+import secrets
+import string
+from django.core.mail import send_mail
 import logging
 
 load_dotenv()
 
-# Set up logging
 logger = logging.getLogger(__name__)
 
-# Initialize Africa's Talking client
-try:
-    username = settings.AFRICASTALKING_USERNAME
-    api_key = settings.AFRICASTALKING_API_KEY
-    africastalking.initialize(username, api_key)
-    sms = africastalking.SMS
-except Exception as e:
-    logger.error(f"Failed to initialize Africa's Talking: {str(e)}")
+def generate_verification_token():
+    """Generate a secure random token for email verification"""
+    # Create a random string with letters and digits
+    alphabet = string.ascii_letters + string.digits
+    token = ''.join(secrets.choice(alphabet) for _ in range(64))
+    return token
 
-def generate_otp():
-    """Generate a 6-digit OTP"""
-    return str(random.randint(100000, 999999))
-
-def send_otp_sms(phone_number, otp):
-    """Send OTP via SMS using Africa's Talking"""
-    try:
-        # Ensure phone_number is formatted with country code
-        message = f"Your verification code is: {otp}"
-        sender_id = getattr(settings, 'AFRICASTALKING_SENDER_ID', None)
-        
-        # Send the message
-        kwargs = {"message": message, "recipients": [str(phone_number)]}
-        if sender_id:
-            kwargs["sender_id"] = sender_id
-            
-        response = sms.send(**kwargs)
-        
-        # Process the response
-        if response and len(response['SMSMessageData']['Recipients']) > 0:
-            recipient = response['SMSMessageData']['Recipients'][0]
-            if recipient['status'] == 'Success':
-                logger.info(f"SMS sent successfully to {phone_number}, messageId: {recipient['messageId']}")
-                return True, recipient['messageId']
-            else:
-                logger.error(f"Failed to send SMS to {phone_number}: {recipient['status']}")
-                return False, recipient['status']
-        else:
-            logger.error(f"No recipients in Africa's Talking response")
-            return False, "Failed to send SMS"
-    except Exception as e:
-        logger.error(f"Error sending SMS via Africa's Talking: {str(e)}")
-        return False, str(e)
-
-def is_otp_valid(user):
-    """Check if OTP is still valid (within expiration time)"""
-    if not user.otp or not user.otp_created_at:
+def is_token_valid(user):
+    """Check if a user's verification token is still valid"""
+    if not user.token_created_at or not user.token_expiration:
         return False
     
-    expiration_time = user.otp_created_at + timedelta(minutes=10)  # OTP valid for 10 minutes
-    return timezone.now() <= expiration_time
+    return timezone.now() <= user.token_expiration
 
+def send_verification_email(user, token):
+    """Send verification email to the user"""
+    verification_url = f"{settings.FRONTEND_URL}/verify-email/{token}"
+    
+    subject = "Verify Your Email Address"
+    message = f"""
+    Hello {user.company_name},
+    
+    Please verify your email address by clicking on the link below:
+    
+    {verification_url}
+    
+    This link will expire in 24 hours.
+    
+    If you did not create an account, please ignore this email.
+    
+    Thank you,
+    Your App Team
+    """
+    
+    try:
+        send_mail(
+            subject=subject,
+            message=message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[user.email],
+            fail_silently=False,
+        )
+        return True, "Verification email sent successfully"
+    except Exception as e:
+        logger.error(f"Failed to send verification email to {user.email}: {str(e)}")
+        return False, str(e)
 
 class SMSGatewayInterface:
     """Base interface for SMS gateways"""
@@ -113,37 +109,37 @@ class AfricasTalkingGateway(SMSGatewayInterface):
         pass
 
 
-class TwilioGateway(SMSGatewayInterface):
-    """Integration with Twilio SMS Gateway"""
-    def __init__(self):
-        self.account_sid = os.getenv('TWILIO_ACCOUNT_SID')
-        self.auth_token = os.getenv('TWILIO_AUTH_TOKEN')
-        self.api_url = f"https://api.twilio.com/2010-04-01/Accounts/{self.account_sid}/Messages.json"
+# class TwilioGateway(SMSGatewayInterface):
+#     """Integration with Twilio SMS Gateway"""
+#     def __init__(self):
+#         self.account_sid = os.getenv('TWILIO_ACCOUNT_SID')
+#         self.auth_token = os.getenv('TWILIO_AUTH_TOKEN')
+#         self.api_url = f"https://api.twilio.com/2010-04-01/Accounts/{self.account_sid}/Messages.json"
         
-    def send_sms(self, to, message, sender=None):
-        """Send an SMS message via Twilio"""
-        if not sender:
-            sender = os.getenv('TWILIO_PHONE_NUMBER')
+#     def send_sms(self, to, message, sender=None):
+#         """Send an SMS message via Twilio"""
+#         if not sender:
+#             sender = os.getenv('TWILIO_PHONE_NUMBER')
             
-        auth = (self.account_sid, self.auth_token)
-        data = {
-            'To': to,
-            'From': sender,
-            'Body': message
-        }
+#         auth = (self.account_sid, self.auth_token)
+#         data = {
+#             'To': to,
+#             'From': sender,
+#             'Body': message
+#         }
         
-        response = requests.post(self.api_url, auth=auth, data=data)
+#         response = requests.post(self.api_url, auth=auth, data=data)
         
-        return response.json()
+#         return response.json()
     
-    def check_delivery_status(self, message_id):
-        """Check the delivery status of a message via Twilio"""
-        url = f"{self.api_url.replace('.json', '')}/{message_id}.json"
-        auth = (self.account_sid, self.auth_token)
+#     def check_delivery_status(self, message_id):
+#         """Check the delivery status of a message via Twilio"""
+#         url = f"{self.api_url.replace('.json', '')}/{message_id}.json"
+#         auth = (self.account_sid, self.auth_token)
         
-        response = requests.get(url, auth=auth)
+#         response = requests.get(url, auth=auth)
         
-        return response.json()
+#         return response.json()
 
 
 class SMSGatewayFactory:

@@ -8,7 +8,6 @@ from phonenumber_field.serializerfields import PhoneNumberField
 from django.contrib.auth import authenticate
 from django.utils import timezone
 from django.core.exceptions import ValidationError
-from utils.sms_gateways import is_otp_valid
 from .models import (
     User, PhoneBook, Contact, SMSCampaign,
     SMSMessage, Payment, SMSTemplate, WebhookEndpoint
@@ -29,32 +28,40 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         
         # Add extra responses
         user = self.user
+        
+        # Check if email is verified
+        if not user.email_verified:
+            raise serializers.ValidationError(
+                {"email": "Email is not verified. Please verify your email before logging in."}
+            )
+        
         data['user_id'] = str(user.id)
         data['company_name'] = user.company_name
-        data['phone_number'] = user.phone_number
         data['email'] = user.email
+        data['phone_number'] = user.phone_number
         data['is_staff'] = user.is_staff
-        data['is_phone_verified'] = user.phone_verified
+        data['is_email_verified'] = user.email_verified
         
         return data
   
 
 class UserSerializer(serializers.ModelSerializer):
-    phone_number = PhoneNumberField()
+    phone_number = PhoneNumberField(required=False)
     
     class Meta:
         model = User
-        fields = ['id', 'phone_number', 'company_name', 'tokens_balance', 'phone_verified', 'metadata', 'date_joined']
-        read_only_fields = ['id', 'tokens_balance', 'phone_verified', 'date_joined']
+        fields = ['id', 'phone_number', 'company_name', 'email', 'tokens_balance', 
+                  'email_verified', 'metadata', 'date_joined']
+        read_only_fields = ['id', 'tokens_balance', 'email_verified', 'date_joined']
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
     """
-    Serializer for user registration with validation for phone number, company name, 
+    Serializer for user registration with validation for email, company name, 
     password, and optional metadata.
     """
-    phone_number = PhoneNumberField(required=True)
     company_name = serializers.CharField(required=True, max_length=255)
+    email = serializers.EmailField(required=True)
     password = serializers.CharField(
         write_only=True, 
         required=True, 
@@ -62,21 +69,21 @@ class RegistrationSerializer(serializers.ModelSerializer):
         validators=[validate_password]
     )
     metadata = serializers.JSONField(required=False, default=dict)
+    phone_number = PhoneNumberField(required=False)
     
     class Meta:
         model = User
-        fields = ['phone_number', 'password', 'company_name', 'email', 'metadata']
+        fields = ['email', 'password', 'company_name', 'phone_number', 'metadata']
         extra_kwargs = {
             'password': {'write_only': True},
-            'email': {'required': False},
         }
     
-    def validate_phone_number(self, value):
+    def validate_email(self, value):
         """
-        Validate that the phone number is not already registered.
+        Validate that the email is not already registered.
         """
-        if User.objects.filter(phone_number=value).exists():
-            raise serializers.ValidationError("This phone number is already registered.")
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("This email is already registered.")
         return value
     
     def validate_company_name(self, value):
@@ -130,64 +137,67 @@ class RegistrationSerializer(serializers.ModelSerializer):
         user = User(**validated_data)
         user.set_password(password)
         user.is_active = True
-        user.phone_verified = False
+        user.email_verified = False
         user.metadata = merged_metadata
         
         # Save the user to the database
         user.save()
         
         return user
-        
 
-class PhoneVerificationRequestSerializer(serializers.Serializer):
-    phone_number = PhoneNumberField(required=True)
 
-class PhoneVerificationConfirmSerializer(serializers.Serializer):
-    phone_number = PhoneNumberField(required=True)
-    otp = serializers.CharField(required=True, min_length=6, max_length=6)
+class EmailVerificationRequestSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True)
+
+
+class EmailVerificationConfirmSerializer(serializers.Serializer):
+    token = serializers.CharField(required=True, min_length=64, max_length=64)
     
     def validate(self, attrs):
-        phone_number = attrs.get('phone_number')
-        otp = attrs.get('otp')
+        token = attrs.get('token')
         
         try:
-            user = User.objects.get(phone_number=phone_number)
+            user = User.objects.get(verification_token=token)
         except User.DoesNotExist:
-            raise serializers.ValidationError({"phone_number": "User with this phone number does not exist."})
+            raise serializers.ValidationError({"token": "Invalid verification token."})
         
-        if not user.otp or user.otp != otp:
-            raise serializers.ValidationError({"otp": "Invalid OTP."})
-        
-        if not is_otp_valid(user):
-            raise serializers.ValidationError({"otp": "OTP has expired. Please request a new one."})
+        if not is_token_valid(user):
+            raise serializers.ValidationError({"token": "Verification token has expired. Please request a new one."})
         
         return attrs
 
 
 class LoginSerializer(serializers.Serializer):
-    """
-    Serializer for user login with company name and password.
-    """
-    company_name = serializers.CharField(required=True)
-    password = serializers.CharField(required=True, write_only=True, style={'input_type': 'password'})
-
+    company_name = serializers.CharField()
+    password = serializers.CharField(style={'input_type': 'password'})
+    
     def validate(self, attrs):
         company_name = attrs.get('company_name')
         password = attrs.get('password')
-
+        
         if company_name and password:
-            user = authenticate(request=self.context.get('request'),
-                                company_name=company_name, password=password)
-
+            user = authenticate(
+                request=self.context.get('request'),
+                company_name=company_name,
+                password=password
+            )
+            
             if not user:
-                msg = 'Unable to log in with provided credentials.'
-                raise serializers.ValidationError(msg, code='authorization')
-        else:
-            msg = 'Must include "company_name" and "password".'
-            raise serializers.ValidationError(msg, code='authorization')
-
-        attrs['user'] = user
-        return attrs
+                raise serializers.ValidationError('Invalid credentials', code='authorization')
+            
+            if not user.is_active:
+                raise serializers.ValidationError('User account is disabled', code='authorization')
+            
+            # Verify email before allowing login (optional - you can comment this out if you want to allow 
+            # login before email verification)
+            if not user.email_verified:
+                raise serializers.ValidationError('Email is not verified. Please verify your email before logging in.', 
+                                                code='authorization')
+            
+            attrs['user'] = user
+            return attrs
+        
+        raise serializers.ValidationError('Must include "company_name" and "password"', code='authorization')
 
 
 class ChangePasswordSerializer(serializers.Serializer):

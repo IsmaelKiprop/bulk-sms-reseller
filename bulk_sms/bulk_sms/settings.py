@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 from datetime import timedelta
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -32,6 +33,9 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['*']
 
+# AFRICASTALKING_USERNAME = os.getenv('AT_USERNAME')
+# AFRICASTALKING_API_KEY = os.getenv('AT_API_KEY')
+# AFRICASTALKING_SENDER_ID = os.getenv('AT_SENDER_ID', None)  # Optional
 
 # Application definition
 
@@ -113,9 +117,9 @@ SIMPLE_JWT = {
 PHONENUMBER_DEFAULT_REGION = 'KE'  # Set to your default region (Kenya in this case)
 
 # Africa's Talking settings
-AFRICASTALKING_USERNAME = 'your_username'
-AFRICASTALKING_API_KEY = 'your_api_key'
-AFRICASTALKING_SENDER_ID = 'YOURBRAND'  # Optional, if you have a registered sender ID
+AFRICASTALKING_USERNAME = 'sandbox'
+AFRICASTALKING_API_KEY = 'atsk_d1c4ebc40df7664bc0286fe4cb6c146fba4614e4d27e066bf8422ed4251ff2eea1e005cc'
+AFRICASTALKING_SENDER_ID = 'AFRICASTKNG'  # Optional, if you have a registered sender ID
 
 # Logging configuration
 LOGGING = {
@@ -182,11 +186,17 @@ WSGI_APPLICATION = 'bulk_sms.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    "default": dj_database_url.parse(
+        "postgresql://postgres:szhgMuQeAFWCEwINwlIlfvVOrtmwdWUe@switchyard.proxy.rlwy.net:25669/railway", conn_max_age=600, ssl_require=True
+    )
 }
 
 

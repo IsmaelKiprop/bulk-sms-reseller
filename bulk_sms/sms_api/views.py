@@ -1,5 +1,4 @@
 # sms_api/views.py
-
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -14,13 +13,14 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.debug import sensitive_post_parameters
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.tokens import RefreshToken
-from utils.sms_gateways import generate_otp, send_otp_sms
+# from utils.sms_gateways import generate_otp, send_otp_sms
 import logging
 from .serializers import (
-    CustomTokenObtainPairSerializer, RegistrationSerializer, UserSerializer,
+    CustomTokenObtainPairSerializer, RegistrationSerializer, EmailVerificationRequestSerializer, 
+    EmailVerificationConfirmSerializer, UserSerializer,
     ChangePasswordSerializer, ResetPasswordRequestSerializer, ResetPasswordConfirmSerializer,
-    UserProfileUpdateSerializer, PhoneVerificationRequestSerializer, PhoneVerificationConfirmSerializer, 
-    PhoneBookSerializer, ContactSerializer, SMSCampaignSerializer, PaymentSerializer, SMSTemplateSerializer,
+    UserProfileUpdateSerializer, PhoneBookSerializer, ContactSerializer, 
+    SMSCampaignSerializer, PaymentSerializer, SMSTemplateSerializer,
     WebhookEndpointSerializer, SMSMessageSerializer, LoginSerializer
 )
 from drf_yasg.utils import swagger_auto_schema
@@ -64,7 +64,6 @@ class CustomTokenObtainPairView(TokenObtainPairView):
         return super().post(request, *args, **kwargs)
 
 
-
 class RegisterView(APIView):
     """
     API endpoint that allows users to register.
@@ -86,8 +85,8 @@ class RegisterView(APIView):
                     properties={
                         'message': openapi.Schema(type=openapi.TYPE_STRING),
                         'user_id': openapi.Schema(type=openapi.TYPE_STRING),
-                        'phone_number': openapi.Schema(type=openapi.TYPE_STRING),
-                        'otp_sent': openapi.Schema(type=openapi.TYPE_BOOLEAN),
+                        'email': openapi.Schema(type=openapi.TYPE_STRING),
+                        'verification_email_sent': openapi.Schema(type=openapi.TYPE_BOOLEAN),
                     }
                 )
             ),
@@ -99,43 +98,46 @@ class RegisterView(APIView):
         if serializer.is_valid():
             user = serializer.save()
             
-            # Generate OTP for verification
-            otp = generate_otp()
-            user.otp = otp
-            user.otp_created_at = timezone.now()
+            # Generate verification token
+            token = generate_verification_token()
+            user.verification_token = token
+            user.token_created_at = timezone.now()
+            user.token_expiration = timezone.now() + timedelta(hours=24)
             user.save()
             
-            # Send OTP via SMS
-            success, message = send_otp_sms(user.phone_number, otp)
+            # Send verification email
+            success, message = send_verification_email(user, token)
             
             if not success:
-                logger.error(f"Failed to send OTP to {user.phone_number}: {message}")
+                logger.error(f"Failed to send verification email to {user.email}: {message}")
             
             return Response({
-                'message': 'User registered successfully. Please verify your phone number with the OTP sent.',
+                'message': 'User registered successfully. Please check your email for verification instructions.',
                 'user_id': str(user.id),
-                'phone_number': str(user.phone_number),
-                'otp_sent': success
+                'email': user.email,
+                'verification_email_sent': success
             }, status=status.HTTP_201_CREATED)
+        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class PhoneVerificationRequestView(APIView):
+
+class EmailVerificationRequestView(APIView):
     """
-    API endpoint for requesting phone verification OTP.
+    API endpoint for requesting email verification.
     """
     permission_classes = [AllowAny]
     
     @swagger_auto_schema(
-        operation_description="Request OTP for phone verification",
-        request_body=PhoneVerificationRequestSerializer,
+        operation_description="Request email verification token",
+        request_body=EmailVerificationRequestSerializer,
         responses={
             200: openapi.Response(
-                description="OTP sent successfully",
+                description="Verification email sent successfully",
                 schema=openapi.Schema(
                     type=openapi.TYPE_OBJECT,
                     properties={
                         'message': openapi.Schema(type=openapi.TYPE_STRING),
-                        'otp_sent': openapi.Schema(type=openapi.TYPE_BOOLEAN),
+                        'verification_email_sent': openapi.Schema(type=openapi.TYPE_BOOLEAN),
                     }
                 )
             ),
@@ -144,74 +146,94 @@ class PhoneVerificationRequestView(APIView):
         }
     )
     def post(self, request):
-        serializer = PhoneVerificationRequestSerializer(data=request.data)
+        serializer = EmailVerificationRequestSerializer(data=request.data)
         if serializer.is_valid():
-            phone_number = serializer.validated_data['phone_number']
+            email = serializer.validated_data['email']
             
             try:
-                user = User.objects.get(phone_number=phone_number)
+                user = User.objects.get(email=email)
                 
-                # Generate new OTP
-                otp = generate_otp()
-                user.otp = otp
-                user.otp_created_at = timezone.now()
+                # If already verified, no need to send another email
+                if user.email_verified:
+                    return Response({
+                        'message': 'Your email is already verified.',
+                        'verification_email_sent': False
+                    }, status=status.HTTP_200_OK)
+                
+                # Generate new verification token
+                token = generate_verification_token()
+                user.verification_token = token
+                user.token_created_at = timezone.now()
+                user.token_expiration = timezone.now() + timedelta(hours=24)
                 user.save()
                 
-                # Send OTP via SMS
-                success, message = send_otp_sms(phone_number, otp)
+                # Send verification email
+                success, message = send_verification_email(user, token)
                 
                 if not success:
-                    logger.error(f"Failed to send OTP to {phone_number}: {message}")
+                    logger.error(f"Failed to send verification email to {email}: {message}")
                 
                 return Response({
-                    'message': 'OTP sent successfully.',
-                    'otp_sent': success
+                    'message': 'Verification email sent successfully.',
+                    'verification_email_sent': success
                 }, status=status.HTTP_200_OK)
             except User.DoesNotExist:
                 return Response({
-                    'message': 'User with this phone number does not exist.'
+                    'message': 'User with this email does not exist.'
                 }, status=status.HTTP_404_NOT_FOUND)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class PhoneVerificationConfirmView(APIView):
+
+class EmailVerificationConfirmView(APIView):
     """
-    API endpoint for confirming phone verification with OTP.
+    API endpoint for confirming email verification with token.
     """
     permission_classes = [AllowAny]
     
     @swagger_auto_schema(
-        operation_description="Confirm phone verification with OTP",
-        request_body=PhoneVerificationConfirmSerializer,
+        operation_description="Confirm email verification with token",
+        request_body=EmailVerificationConfirmSerializer,
         responses={
             200: openapi.Response(
-                description="Phone number verified successfully",
+                description="Email verified successfully",
                 schema=openapi.Schema(
                     type=openapi.TYPE_OBJECT,
                     properties={
                         'message': openapi.Schema(type=openapi.TYPE_STRING),
+                        'email': openapi.Schema(type=openapi.TYPE_STRING),
                     }
                 )
             ),
-            400: "Invalid OTP or Bad request"
+            400: "Invalid token or Bad request"
         }
     )
     def post(self, request):
-        serializer = PhoneVerificationConfirmSerializer(data=request.data)
+        serializer = EmailVerificationConfirmSerializer(data=request.data)
         if serializer.is_valid():
-            phone_number = serializer.validated_data['phone_number']
+            token = serializer.validated_data['token']
             
-            user = User.objects.get(phone_number=phone_number)
-            user.phone_verified = True
-            user.otp = None  # Clear the OTP
-            user.otp_created_at = None
-            user.save()
-            
-            return Response({
-                'message': 'Phone number verified successfully.'
-            }, status=status.HTTP_200_OK)
+            try:
+                user = User.objects.get(verification_token=token)
+                
+                # Mark email as verified
+                user.email_verified = True
+                user.verification_token = None  # Clear the token
+                user.token_created_at = None
+                user.token_expiration = None
+                user.save()
+                
+                return Response({
+                    'message': 'Email verified successfully.',
+                    'email': user.email
+                }, status=status.HTTP_200_OK)
+            except User.DoesNotExist:
+                return Response({
+                    'message': 'Invalid verification token.'
+                }, status=status.HTTP_400_BAD_REQUEST)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class LoginView(APIView):
     """
@@ -232,10 +254,10 @@ class LoginView(APIView):
                         'access': openapi.Schema(type=openapi.TYPE_STRING),
                         'user_id': openapi.Schema(type=openapi.TYPE_STRING),
                         'company_name': openapi.Schema(type=openapi.TYPE_STRING),
-                        'phone_number': openapi.Schema(type=openapi.TYPE_STRING),
                         'email': openapi.Schema(type=openapi.TYPE_STRING),
+                        'phone_number': openapi.Schema(type=openapi.TYPE_STRING),
                         'tokens_balance': openapi.Schema(type=openapi.TYPE_INTEGER),
-                        'is_phone_verified': openapi.Schema(type=openapi.TYPE_BOOLEAN),
+                        'is_email_verified': openapi.Schema(type=openapi.TYPE_BOOLEAN),
                     }
                 )
             ),
@@ -252,8 +274,7 @@ class LoginView(APIView):
             # Get tokens for the user
             refresh = RefreshToken.for_user(user)
             
-            # Update last login if you want to track that
-            from django.utils import timezone
+            # Update last login
             user.last_login = timezone.now()
             user.save(update_fields=['last_login'])
             
@@ -262,10 +283,10 @@ class LoginView(APIView):
                 'access': str(refresh.access_token),
                 'user_id': str(user.id),
                 'company_name': user.company_name,
-                'phone_number': user.phone_number,
                 'email': user.email,
+                'phone_number': user.phone_number,
                 'tokens_balance': user.tokens_balance,
-                'is_phone_verified': user.phone_verified,
+                'is_email_verified': user.email_verified,
             })
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

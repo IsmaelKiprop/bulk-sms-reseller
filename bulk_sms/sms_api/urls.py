@@ -4,10 +4,10 @@ from rest_framework_simplejwt.views import TokenRefreshView
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import (
-    UserViewSet, PhoneBookViewSet, ContactViewSet, SMSCampaignViewSet,
+    RegisterView, EmailVerificationRequestView, EmailVerificationConfirmView, UserViewSet, 
+    PhoneBookViewSet, ContactViewSet, SMSCampaignViewSet,
     SMSMessageViewSet, PaymentViewSet, SMSTemplateViewSet, WebhookEndpointViewSet,
-    CustomTokenObtainPairView, RegisterView, PhoneVerificationRequestView, 
-    PhoneVerificationConfirmView, LoginView, LogoutView, ChangePasswordView, 
+    CustomTokenObtainPairView, RegisterView, LoginView, LogoutView, ChangePasswordView, 
     ResetPasswordRequestView, ResetPasswordConfirmView, UserProfileView
 )
 
@@ -34,9 +34,8 @@ urlpatterns = [
     
     # Registration and verification
     path('register/', RegisterView.as_view(), name='register'),
-    path('verify-phone/request/', PhoneVerificationRequestView.as_view(), name='verify_phone_request'),
-    path('verify-phone/confirm/', PhoneVerificationConfirmView.as_view(), name='verify_phone_confirm'),
-    
+    path('email/verify-request/', EmailVerificationRequestView.as_view(), name='email-verify-request'),
+    path('email/verify-confirm/', EmailVerificationConfirmView.as_view(), name='email-verify-confirm'),
     # Password management
     path('change-password/', ChangePasswordView.as_view(), name='change_password'),
     path('reset-password/request/', ResetPasswordRequestView.as_view(), name='reset_password_request'),
@@ -44,6 +43,4 @@ urlpatterns = [
     
     # User profile
     path('profile/', UserProfileView.as_view(), name='profile'),
-    
-    # Additional action endpoints for ViewSets can be added here if needed
 ]
