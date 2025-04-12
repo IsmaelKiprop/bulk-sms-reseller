@@ -68,6 +68,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_ALLOW_CREDENTIALS = True  # Allow cookies to be sent cross-origin
+
 # CORS settings
 CORS_ALLOW_ALL_ORIGINS = False  # Set to True for development only
 CORS_ALLOWED_ORIGINS = [
@@ -281,3 +283,7 @@ from rest_framework.throttling import AnonRateThrottle
 class EmailVerificationRateThrottle(AnonRateThrottle):
     scope = 'email_verification'
 """
+
+# Secure cookies settings
+CSRF_COOKIE_SECURE = True  # Use HTTPS for CSRF cookies
+SESSION_COOKIE_SECURE = True  # Use HTTPS for session cookies

@@ -14,8 +14,14 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.generics import RetrieveUpdateAPIView
-# from utils.sms_gateways import generate_otp, send_otp_sms
+from datetime import timedelta
+from django.utils import timezone
 import logging
+from utils.sms_gateways import (
+    validate_african_phone, generate_verification_token, 
+    is_token_valid, send_verification_email, format_phone_number, 
+    send_verification_email, send_password_reset_email
+    )
 from .serializers import (
     CustomTokenObtainPairSerializer, RegistrationSerializer, EmailVerificationRequestSerializer, 
     EmailVerificationConfirmSerializer, UserSerializer,
@@ -37,7 +43,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     with additional user details.
     """
     serializer_class = CustomTokenObtainPairSerializer
-    
+
     @swagger_auto_schema(
         operation_description="Obtain JWT token pair with company name and password",
         responses={
@@ -54,7 +60,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
                         'email': openapi.Schema(type=openapi.TYPE_STRING),
                         'tokens_balance': openapi.Schema(type=openapi.TYPE_INTEGER),
                         'is_staff': openapi.Schema(type=openapi.TYPE_BOOLEAN),
-                        'is_phone_verified': openapi.Schema(type=openapi.TYPE_BOOLEAN),
+                        'is_email_verified': openapi.Schema(type=openapi.TYPE_BOOLEAN),
                     }
                 )
             ),
@@ -62,7 +68,47 @@ class CustomTokenObtainPairView(TokenObtainPairView):
         }
     )
     def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
+        response = super().post(request, *args, **kwargs)
+
+        # Extract user information from the response data
+        user = request.user
+        refresh = RefreshToken.for_user(user)
+        
+        # Set the access and refresh tokens in HttpOnly cookies
+        access_token_expiry = timedelta(minutes=15)  # 15 minutes
+        refresh_token_expiry = timedelta(days=7)  # 7 days
+        
+        # Add tokens to HttpOnly cookies
+        response.set_cookie(
+            'access_token',
+            str(refresh.access_token),
+            httponly=True,
+            secure=True,  # Ensure this is True in production (HTTPS)
+            samesite='Strict',
+            max_age=access_token_expiry
+        )
+        
+        response.set_cookie(
+            'refresh_token',
+            str(refresh),
+            httponly=True,
+            secure=True,  # Ensure this is True in production (HTTPS)
+            samesite='Strict',
+            max_age=refresh_token_expiry
+        )
+        
+        # Include additional user details in the response
+        response.data.update({
+            'user_id': str(user.id),
+            'company_name': user.company_name,
+            'phone_number': user.phone_number,
+            'email': user.email,
+            'tokens_balance': user.tokens_balance,
+            'is_staff': user.is_staff,
+            'is_email_verified': user.email_verified,
+        })
+
+        return response
 
 
 class RegisterView(APIView):

@@ -839,3 +839,131 @@ INFO 2025-04-12 12:56:00,544 autoreload 285231 140381507190784 Watching for file
 INFO 2025-04-12 12:58:12,050 autoreload 285231 140381507190784 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
 INFO 2025-04-12 12:58:12,911 autoreload 285799 140531706699776 Watching for file changes with StatReloader
 INFO 2025-04-12 13:37:29,416 autoreload 294882 140050473725952 Watching for file changes with StatReloader
+INFO 2025-04-12 13:46:26,522 autoreload 295124 139738626727936 Watching for file changes with StatReloader
+ERROR 2025-04-12 13:55:27,680 log 295124 139738546693696 Internal Server Error: /api/v1/register/
+Traceback (most recent call last):
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/django/utils/decorators.py", line 46, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/django/views/decorators/debug.py", line 92, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py", line 76, in dispatch
+    return super().dispatch(*args, **kwargs)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py", line 101, in post
+    is_valid, formatted_number, error = validate_african_phone(request.data['phone_number'])
+NameError: name 'validate_african_phone' is not defined
+ERROR 2025-04-12 13:55:28,027 basehttp 295124 139738546693696 "POST /api/v1/register/ HTTP/1.1" 500 145
+INFO 2025-04-12 13:59:10,600 autoreload 295124 139738626727936 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-12 13:59:11,458 autoreload 295433 140081269694464 Watching for file changes with StatReloader
+ERROR 2025-04-12 13:59:23,450 log 295433 140081189873216 Internal Server Error: /api/v1/register/
+Traceback (most recent call last):
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/django/utils/decorators.py", line 46, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/django/views/decorators/debug.py", line 92, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py", line 76, in dispatch
+    return super().dispatch(*args, **kwargs)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py", line 113, in post
+    token = generate_verification_token()
+NameError: name 'generate_verification_token' is not defined
+ERROR 2025-04-12 13:59:23,454 basehttp 295433 140081189873216 "POST /api/v1/register/ HTTP/1.1" 500 145
+INFO 2025-04-12 13:59:48,018 autoreload 295433 140081269694464 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-12 13:59:48,639 autoreload 295457 139799270289408 Watching for file changes with StatReloader
+INFO 2025-04-12 14:00:56,909 autoreload 295457 139799270289408 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-12 14:00:57,642 autoreload 295490 140579753590784 Watching for file changes with StatReloader
+INFO 2025-04-12 14:01:30,532 autoreload 295490 140579753590784 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-12 14:01:31,134 autoreload 295506 140550085091328 Watching for file changes with StatReloader
+INFO 2025-04-12 14:02:21,518 autoreload 295506 140550085091328 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-12 14:02:22,153 autoreload 295532 139680270483456 Watching for file changes with StatReloader
+INFO 2025-04-12 14:02:33,275 autoreload 295532 139680270483456 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-12 14:02:33,857 autoreload 295534 140309580779520 Watching for file changes with StatReloader
+INFO 2025-04-12 14:02:52,128 autoreload 295534 140309580779520 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-12 14:02:52,770 autoreload 295548 140181778870272 Watching for file changes with StatReloader
+INFO 2025-04-12 14:04:03,691 autoreload 295548 140181778870272 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-12 14:04:04,298 autoreload 295576 139999822581760 Watching for file changes with StatReloader
+INFO 2025-04-12 14:04:38,346 autoreload 295576 139999822581760 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-12 14:04:39,035 autoreload 295592 139982878408704 Watching for file changes with StatReloader
+WARNING 2025-04-12 14:05:25,424 log 295592 139982798841408 Bad Request: /api/v1/register/
+WARNING 2025-04-12 14:05:25,425 basehttp 295592 139982798841408 "POST /api/v1/register/ HTTP/1.1" 400 167
+ERROR 2025-04-12 14:06:15,288 log 295592 139982798841408 Internal Server Error: /api/v1/register/
+Traceback (most recent call last):
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/django/utils/decorators.py", line 46, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/django/views/decorators/debug.py", line 92, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py", line 80, in dispatch
+    return super().dispatch(*args, **kwargs)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/env/lib/python3.10/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py", line 120, in post
+    user.token_expiration = timezone.now() + timedelta(hours=24)
+NameError: name 'timedelta' is not defined
+ERROR 2025-04-12 14:06:15,291 basehttp 295592 139982798841408 "POST /api/v1/register/ HTTP/1.1" 500 145
+INFO 2025-04-12 14:08:20,695 autoreload 295592 139982878408704 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-12 14:08:21,599 autoreload 295690 140053776461824 Watching for file changes with StatReloader
+INFO 2025-04-12 14:08:38,088 autoreload 295690 140053776461824 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-12 14:08:38,756 autoreload 295700 140479389044736 Watching for file changes with StatReloader
+INFO 2025-04-12 14:09:56,174 basehttp 295700 140479309014592 "POST /api/v1/register/ HTTP/1.1" 201 244
+WARNING 2025-04-12 14:12:06,797 log 295700 140479296423488 Bad Request: /api/v1/register/
+WARNING 2025-04-12 14:12:06,798 basehttp 295700 140479296423488 "POST /api/v1/register/ HTTP/1.1" 400 162
+INFO 2025-04-12 14:12:52,255 basehttp 295700 140479296423488 "POST /api/v1/register/ HTTP/1.1" 201 239
+WARNING 2025-04-12 14:18:18,893 log 295700 140479309014592 Bad Request: /api/v1/login/
+WARNING 2025-04-12 14:18:18,895 basehttp 295700 140479309014592 "POST /api/v1/login/ HTTP/1.1" 400 91
+INFO 2025-04-12 14:22:40,470 basehttp 295700 140479296423488 "POST /api/v1/login/ HTTP/1.1" 200 762
+INFO 2025-04-12 14:35:01,517 autoreload 295700 140479389044736 /home/ismael/bulk-sms-reseller/bulk_sms/bulk_sms/settings.py changed, reloading.
+INFO 2025-04-12 14:35:02,175 autoreload 296352 140680875515904 Watching for file changes with StatReloader
+INFO 2025-04-12 14:35:52,501 autoreload 296352 140680875515904 /home/ismael/bulk-sms-reseller/bulk_sms/bulk_sms/settings.py changed, reloading.
+INFO 2025-04-12 14:35:53,301 autoreload 296376 140112929226752 Watching for file changes with StatReloader
+INFO 2025-04-12 14:36:50,431 autoreload 296376 140112929226752 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-12 14:36:51,183 autoreload 296403 140543361376256 Watching for file changes with StatReloader
+INFO 2025-04-12 14:39:16,865 autoreload 296403 140543361376256 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-12 14:39:17,540 autoreload 296459 140499275038720 Watching for file changes with StatReloader
+INFO 2025-04-12 14:39:51,292 autoreload 296459 140499275038720 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-12 14:39:51,946 autoreload 296479 140688913367040 Watching for file changes with StatReloader
+INFO 2025-04-12 14:40:11,363 autoreload 296479 140688913367040 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-12 14:40:12,078 autoreload 296487 140613222187008 Watching for file changes with StatReloader
