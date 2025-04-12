@@ -81,6 +81,17 @@ CSRF_TRUSTED_ORIGINS = [
 
 # REST Framework settings
 REST_FRAMEWORK = {
+    # Add rate limiting
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '5/minute',  # Limit anonymous users to 5 requests per minute
+        'user': '20/minute',  # Limit authenticated users to 20 requests per minute
+        'email_verification': '3/hour',  # Limit email verification requests
+    },
+
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
@@ -88,6 +99,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ]
 }
+
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
@@ -246,3 +258,26 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # settings.py
 AUTH_USER_MODEL = 'sms_api.User'
 
+
+# Email Settings (Using Gmail as an Example)
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "kipropismael27@gmail.com"
+EMAIL_HOST_PASSWORD = "vvmwtssiaafwolhh"  # Use App Password for security
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+# Set the URL of your frontend for verification links
+FRONTEND_URL = 'https://your-frontend-url.com'
+
+
+# Add custom throttle class for email verification
+# Create this file in your app: throttling.py
+"""
+from rest_framework.throttling import AnonRateThrottle
+
+class EmailVerificationRateThrottle(AnonRateThrottle):
+    scope = 'email_verification'
+"""

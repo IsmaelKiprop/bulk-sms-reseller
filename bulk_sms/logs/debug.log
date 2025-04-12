@@ -809,3 +809,18 @@ INFO 2025-04-12 12:10:28,822 autoreload 272917 140513774231552 /home/ismael/bulk
 INFO 2025-04-12 12:10:29,563 autoreload 273526 139933367697408 Watching for file changes with StatReloader
 INFO 2025-04-12 12:14:29,573 autoreload 273526 139933367697408 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/urls.py changed, reloading.
 INFO 2025-04-12 12:14:30,215 autoreload 274561 140635938086912 Watching for file changes with StatReloader
+INFO 2025-04-12 12:16:43,346 autoreload 275140 140389476265984 Watching for file changes with StatReloader
+INFO 2025-04-12 12:23:52,526 autoreload 275140 140389476265984 /home/ismael/bulk-sms-reseller/bulk_sms/bulk_sms/settings.py changed, reloading.
+INFO 2025-04-12 12:23:53,258 autoreload 276975 140719942426624 Watching for file changes with StatReloader
+INFO 2025-04-12 12:24:16,211 autoreload 276975 140719942426624 /home/ismael/bulk-sms-reseller/bulk_sms/bulk_sms/settings.py changed, reloading.
+INFO 2025-04-12 12:24:17,134 autoreload 277081 139826874769408 Watching for file changes with StatReloader
+INFO 2025-04-12 12:24:23,306 autoreload 277081 139826874769408 /home/ismael/bulk-sms-reseller/bulk_sms/bulk_sms/settings.py changed, reloading.
+INFO 2025-04-12 12:24:24,063 autoreload 277110 140482782334976 Watching for file changes with StatReloader
+INFO 2025-04-12 12:25:17,866 autoreload 277110 140482782334976 /home/ismael/bulk-sms-reseller/bulk_sms/bulk_sms/settings.py changed, reloading.
+INFO 2025-04-12 12:25:18,636 autoreload 277342 139784935383040 Watching for file changes with StatReloader
+INFO 2025-04-12 12:25:21,670 autoreload 277342 139784935383040 /home/ismael/bulk-sms-reseller/bulk_sms/bulk_sms/settings.py changed, reloading.
+INFO 2025-04-12 12:25:22,387 autoreload 277359 139737856045056 Watching for file changes with StatReloader
+INFO 2025-04-12 12:27:42,151 autoreload 277359 139737856045056 /home/ismael/bulk-sms-reseller/bulk_sms/bulk_sms/settings.py changed, reloading.
+INFO 2025-04-12 12:27:42,984 autoreload 277955 140085442203648 Watching for file changes with StatReloader
+INFO 2025-04-12 12:27:45,656 autoreload 277955 140085442203648 /home/ismael/bulk-sms-reseller/bulk_sms/bulk_sms/settings.py changed, reloading.
+INFO 2025-04-12 12:27:46,384 autoreload 277970 139645235036160 Watching for file changes with StatReloader
