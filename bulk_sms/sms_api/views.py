@@ -1,5 +1,5 @@
 # sms_api/views.py
-from rest_framework import viewsets, permissions, status
+from rest_framework import viewsets, permissions, status, filters
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.db.models import Q
@@ -19,6 +19,7 @@ from rest_framework_simplejwt.tokens import AccessToken
 from datetime import timedelta
 from django.utils import timezone
 import logging
+from .models import SMSTemplate
 from utils.sms_gateways import (
     validate_african_phone, generate_verification_token, 
     is_token_valid, send_verification_email, format_phone_number, 
@@ -407,6 +408,37 @@ class LoginView(APIView):
 
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class SMSTemplateViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint for managing SMS templates
+    """
+    serializer_class = SMSTemplateSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['name', 'content', 'category']
+    ordering_fields = ['name', 'category', 'created_at', 'updated_at', 'last_used']
+    ordering = ['-created_at']
+    
+    def get_queryset(self):
+        """Return templates owned by the current user"""
+        return SMSTemplate.objects.filter(user=self.request.user)
+    
+    @action(detail=True, methods=['post'])
+    def mark_used(self, request, pk=None):
+        """Mark a template as used by updating last_used timestamp"""
+        template = self.get_object()
+        template.last_used = timezone.now()
+        template.save(update_fields=['last_used'])
+        return Response({'status': 'template marked as used'})
+    
+    @action(detail=False, methods=['get'])
+    def categories(self, request):
+        """Return available template categories"""
+        categories = [{"value": key, "label": value} for key, value in SMSTemplate.CATEGORY_CHOICES]
+        return Response(categories)
+
 
 class LogoutView(APIView):
     """

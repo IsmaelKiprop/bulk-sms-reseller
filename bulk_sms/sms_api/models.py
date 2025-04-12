@@ -47,6 +47,35 @@ class User(AbstractUser):
         super().save(*args, **kwargs)
 
 
+
+class SMSTemplate(models.Model):
+    """Reusable message templates for campaigns"""
+    CATEGORY_CHOICES = [
+        ('onboarding', 'Onboarding'),
+        ('transactional', 'Transactional'),
+        ('reminder', 'Reminder'),
+        ('marketing', 'Marketing'),
+        ('other', 'Other'),
+    ]
+    
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='templates')
+    name = models.CharField(max_length=100)
+    content = models.TextField()
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='other')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    last_used = models.DateTimeField(null=True, blank=True)
+    
+    def use_template(self):
+        """Update last_used timestamp when template is used"""
+        self.last_used = timezone.now()
+        self.save(update_fields=['last_used'])
+        
+    def __str__(self):
+        return self.name
+
+
 class PhoneBook(models.Model):
     """Contact groups/phonebooks for organizing contacts"""
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -124,25 +153,6 @@ class Payment(models.Model):
     status = models.CharField(max_length=20, choices=PAYMENT_STATUS, default='pending')
     payment_date = models.DateTimeField(null=True, blank=True)
     metadata = models.JSONField(default=dict, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-
-class SMSTemplate(models.Model):
-    """Reusable message templates"""
-    CATEGORY_CHOICES = [
-        ('onboarding', 'Onboarding'),
-        ('transactional', 'Transactional'),
-        ('reminder', 'Reminder'),
-        ('marketing', 'Marketing'),
-        ('other', 'Other'),
-    ]
-    
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='templates')
-    name = models.CharField(max_length=100)
-    content = models.TextField()
-    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='other')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

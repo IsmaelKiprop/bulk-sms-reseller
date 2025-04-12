@@ -311,6 +311,27 @@ class LoginSerializer(serializers.Serializer):
         
         raise serializers.ValidationError('Must include "company_name" and "password"', code='authorization')
 
+
+class SMSTemplateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SMSTemplate
+        fields = ['id', 'name', 'content', 'category', 'created_at', 'updated_at', 'last_used']
+        read_only_fields = ['id', 'created_at', 'updated_at', 'last_used']
+    
+    def create(self, validated_data):
+        validated_data['user'] = self.context['request'].user
+        return super().create(validated_data)
+        
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['category_display'] = instance.get_category_display()
+        # Add a preview field with shortened content
+        content = instance.content
+        representation['content_preview'] = (content[:50] + '...') if len(content) > 50 else content
+        return representation
+
+
+
 class ChangePasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True)
     new_password = serializers.CharField(required=True, validators=[validate_password])
