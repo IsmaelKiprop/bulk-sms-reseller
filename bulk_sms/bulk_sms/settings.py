@@ -79,6 +79,7 @@ CORS_ALLOWED_ORIGINS = [
 
 CSRF_TRUSTED_ORIGINS = [
     "https://fb36-105-161-36-99.ngrok-free.app",
+    "https://1adf-105-161-204-170.ngrok-free.app",
 ]
 
 # REST Framework settings
@@ -272,8 +273,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 # Set the URL of your frontend for verification links
-FRONTEND_URL = 'https://your-frontend-url.com'
-
+FRONTEND_URL = 'https://gdabulksms.web.app'
 
 # Add custom throttle class for email verification
 # Create this file in your app: throttling.py

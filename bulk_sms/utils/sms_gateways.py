@@ -48,7 +48,7 @@ def send_verification_email(user, token):
     If you did not create an account, please ignore this email.
     
     Thank you,
-    Your App Team
+    GDA Team
     """
     
     try:
@@ -81,7 +81,7 @@ def send_password_reset_email(user, token):
     If you did not request a password reset, please ignore this email or contact support if you have concerns.
     
     Thank you,
-    Your App Team
+    GDA Team
     """
     
     try:
@@ -112,7 +112,7 @@ def format_phone_number(phone_number):
             cleaned_number = '+254' + cleaned_number[1:]
         else:
             # Otherwise just add +254
-            cleaned_number = '+254' + cleaned_number
+            cleaned_number = '+' + cleaned_number
     
     return cleaned_number
 

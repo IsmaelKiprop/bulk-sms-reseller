@@ -185,10 +185,10 @@ class RegistrationSerializer(serializers.ModelSerializer):
         if User.objects.filter(phone_number=value).exists():
             raise serializers.ValidationError("This phone number is already registered.")
         
-        # Ensure Kenya is the default if no country code is specified
-        if not value.startswith('+'):
-            # Add Kenya's country code if missing
-            value = f"+254{value}" if not value.startswith('0') else f"+254{value[1:]}"
+        # # Ensure Kenya is the default if no country code is specified
+        # if not value.startswith('+'):
+        #     # Add Kenya's country code if missing
+        #     value = f"+254{value}" if not value.startswith('0') else f"+254{value[1:]}"
         
         return value
     
@@ -357,6 +357,7 @@ class ResetPasswordConfirmSerializer(serializers.Serializer):
             raise serializers.ValidationError({"new_password": "Password fields didn't match."})
         
         return attrs
+
 
 
 class UserProfileUpdateSerializer(serializers.ModelSerializer):

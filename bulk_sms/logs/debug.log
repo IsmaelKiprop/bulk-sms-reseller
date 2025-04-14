@@ -1059,3 +1059,127 @@ INFO 2025-04-12 20:26:12,808 autoreload 308149 140270168915968 /home/ismael/bulk
 INFO 2025-04-12 20:26:14,770 autoreload 308836 139979627089920 Watching for file changes with StatReloader
 INFO 2025-04-12 20:27:11,692 autoreload 308836 139979627089920 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/urls.py changed, reloading.
 INFO 2025-04-12 20:27:12,915 autoreload 308934 139909265539072 Watching for file changes with StatReloader
+INFO 2025-04-14 09:11:13,192 autoreload 24502 139646567112704 Watching for file changes with StatReloader
+INFO 2025-04-14 09:12:58,858 autoreload 25041 139736201912320 Watching for file changes with StatReloader
+INFO 2025-04-14 09:18:56,230 autoreload 25041 139736201912320 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/serializers.py changed, reloading.
+INFO 2025-04-14 09:18:58,181 autoreload 27300 140363741253632 Watching for file changes with StatReloader
+INFO 2025-04-14 09:21:05,773 basehttp 27300 140363661567552 "OPTIONS /api/v1/register/ HTTP/1.1" 200 0
+WARNING 2025-04-14 09:21:06,703 log 27300 140363661567552 Unauthorized: /api/v1/register/
+WARNING 2025-04-14 09:21:06,704 basehttp 27300 140363661567552 "POST /api/v1/register/ HTTP/1.1" 401 172
+INFO 2025-04-14 09:21:07,411 basehttp 27300 140363661567552 "OPTIONS /api/v1/api/auth/token/refresh/ HTTP/1.1" 200 0
+WARNING 2025-04-14 09:21:08,005 log 27300 140363661567552 Not Found: /api/v1/api/auth/token/refresh/
+WARNING 2025-04-14 09:21:08,005 basehttp 27300 140363661567552 "POST /api/v1/api/auth/token/refresh/ HTTP/1.1" 404 179
+INFO 2025-04-14 09:24:49,122 autoreload 27300 140363741253632 /home/ismael/bulk-sms-reseller/bulk_sms/bulk_sms/settings.py changed, reloading.
+INFO 2025-04-14 09:24:50,231 autoreload 28999 140658515644416 Watching for file changes with StatReloader
+INFO 2025-04-14 09:25:45,878 autoreload 28999 140658515644416 /home/ismael/bulk-sms-reseller/bulk_sms/bulk_sms/settings.py changed, reloading.
+INFO 2025-04-14 09:25:46,565 autoreload 29270 140290979258368 Watching for file changes with StatReloader
+WARNING 2025-04-14 09:33:43,126 log 29270 140290899830336 Bad Request: /api/v1/register/
+WARNING 2025-04-14 09:33:43,128 basehttp 29270 140290899830336 "POST /api/v1/register/ HTTP/1.1" 400 211
+WARNING 2025-04-14 09:34:11,239 log 29270 140290888287808 Bad Request: /api/v1/register/
+WARNING 2025-04-14 09:34:11,241 basehttp 29270 140290888287808 "POST /api/v1/register/ HTTP/1.1" 400 197
+WARNING 2025-04-14 09:34:33,163 log 29270 140290677536320 Bad Request: /api/v1/register/
+WARNING 2025-04-14 09:34:33,164 basehttp 29270 140290677536320 "POST /api/v1/register/ HTTP/1.1" 400 97
+WARNING 2025-04-14 09:35:11,375 log 29270 140290669143616 Bad Request: /api/v1/register/
+WARNING 2025-04-14 09:35:11,378 basehttp 29270 140290669143616 "POST /api/v1/register/ HTTP/1.1" 400 47
+INFO 2025-04-14 09:35:32,340 basehttp 29270 140290899830336 "POST /api/v1/register/ HTTP/1.1" 201 241
+INFO 2025-04-14 09:39:00,077 autoreload 29270 140290979258368 /home/ismael/bulk-sms-reseller/bulk_sms/utils/sms_gateways.py changed, reloading.
+INFO 2025-04-14 09:39:01,190 autoreload 33331 140005627252736 Watching for file changes with StatReloader
+INFO 2025-04-14 09:40:28,028 autoreload 33331 140005627252736 /home/ismael/bulk-sms-reseller/bulk_sms/utils/sms_gateways.py changed, reloading.
+INFO 2025-04-14 09:40:28,932 autoreload 33795 140463200935936 Watching for file changes with StatReloader
+WARNING 2025-04-14 09:40:38,267 log 33795 140463121098304 Bad Request: /api/v1/register/
+WARNING 2025-04-14 09:40:38,269 basehttp 33795 140463121098304 "POST /api/v1/register/ HTTP/1.1" 400 79
+WARNING 2025-04-14 09:40:44,344 log 33795 140463121098304 Bad Request: /api/v1/register/
+WARNING 2025-04-14 09:40:44,345 basehttp 33795 140463121098304 "POST /api/v1/register/ HTTP/1.1" 400 79
+INFO 2025-04-14 09:41:18,648 autoreload 33795 140463200935936 /home/ismael/bulk-sms-reseller/bulk_sms/utils/sms_gateways.py changed, reloading.
+INFO 2025-04-14 09:41:19,333 autoreload 34061 140026525761536 Watching for file changes with StatReloader
+WARNING 2025-04-14 09:41:37,530 log 34061 140026445817408 Bad Request: /api/v1/register/
+WARNING 2025-04-14 09:41:37,531 basehttp 34061 140026445817408 "POST /api/v1/register/ HTTP/1.1" 400 61
+INFO 2025-04-14 09:41:55,781 basehttp 34061 140026445817408 "POST /api/v1/register/ HTTP/1.1" 201 239
+INFO 2025-04-14 09:49:11,705 basehttp 34061 140026445817408 "OPTIONS /api/v1/login/ HTTP/1.1" 200 0
+WARNING 2025-04-14 09:49:17,592 log 34061 140026445817408 Bad Request: /api/v1/login/
+WARNING 2025-04-14 09:49:17,603 basehttp 34061 140026445817408 "POST /api/v1/login/ HTTP/1.1" 400 44
+WARNING 2025-04-14 09:50:45,906 log 34061 140026433226304 Bad Request: /api/v1/login/
+WARNING 2025-04-14 09:50:45,909 basehttp 34061 140026433226304 "POST /api/v1/login/ HTTP/1.1" 400 44
+WARNING 2025-04-14 09:50:59,575 log 34061 140026433226304 Bad Request: /api/v1/login/
+WARNING 2025-04-14 09:50:59,576 basehttp 34061 140026433226304 "POST /api/v1/login/ HTTP/1.1" 400 44
+WARNING 2025-04-14 09:51:29,453 log 34061 140026433226304 Bad Request: /api/v1/login/
+WARNING 2025-04-14 09:51:29,457 basehttp 34061 140026433226304 "POST /api/v1/login/ HTTP/1.1" 400 44
+WARNING 2025-04-14 09:52:18,985 log 34061 140026445817408 Bad Request: /api/v1/login/
+WARNING 2025-04-14 09:52:18,986 basehttp 34061 140026445817408 "POST /api/v1/login/ HTTP/1.1" 400 44
+WARNING 2025-04-14 09:52:36,731 log 34061 140026424833600 Bad Request: /api/v1/login/
+WARNING 2025-04-14 09:52:36,733 basehttp 34061 140026424833600 "POST /api/v1/login/ HTTP/1.1" 400 44
+INFO 2025-04-14 09:53:41,756 basehttp 34061 140026433226304 "POST /api/v1/register/ HTTP/1.1" 201 239
+WARNING 2025-04-14 09:54:39,086 log 34061 140026433226304 Bad Request: /api/v1/login/
+WARNING 2025-04-14 09:54:39,087 basehttp 34061 140026433226304 "POST /api/v1/login/ HTTP/1.1" 400 91
+INFO 2025-04-14 09:56:30,069 basehttp 34061 140026433226304 "POST /api/v1/login/ HTTP/1.1" 200 762
+INFO 2025-04-14 10:07:50,546 autoreload 34061 140026525761536 /home/ismael/bulk-sms-reseller/bulk_sms/utils/sms_gateways.py changed, reloading.
+INFO 2025-04-14 10:07:51,895 autoreload 43046 140674918400000 Watching for file changes with StatReloader
+INFO 2025-04-14 10:34:58,262 autoreload 43046 140674918400000 /home/ismael/bulk-sms-reseller/bulk_sms/bulk_sms/settings.py changed, reloading.
+INFO 2025-04-14 10:34:59,744 autoreload 52701 140533759594496 Watching for file changes with StatReloader
+INFO 2025-04-14 10:48:08,178 autoreload 52701 140533759594496 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-14 10:48:09,623 autoreload 57460 139690825060352 Watching for file changes with StatReloader
+INFO 2025-04-14 10:53:08,139 basehttp 57460 139690745259584 "OPTIONS /api/v1/reset-password/request/ HTTP/1.1" 200 0
+INFO 2025-04-14 10:53:16,446 basehttp 57460 139690745259584 "POST /api/v1/reset-password/request/ HTTP/1.1" 200 88
+INFO 2025-04-14 10:53:21,805 basehttp 57460 139690736866880 "POST /api/v1/reset-password/request/ HTTP/1.1" 200 88
+INFO 2025-04-14 11:05:50,687 basehttp 57460 139690736866880 "OPTIONS /api/v1/reset-password/confirm/ HTTP/1.1" 200 0
+WARNING 2025-04-14 11:05:51,292 log 57460 139690736866880 Bad Request: /api/v1/reset-password/confirm/
+WARNING 2025-04-14 11:05:51,293 basehttp 57460 139690736866880 "POST /api/v1/reset-password/confirm/ HTTP/1.1" 400 48
+WARNING 2025-04-14 11:06:44,167 log 57460 139690745259584 Bad Request: /api/v1/reset-password/confirm/
+WARNING 2025-04-14 11:06:44,213 basehttp 57460 139690745259584 "POST /api/v1/reset-password/confirm/ HTTP/1.1" 400 48
+WARNING 2025-04-14 11:08:19,675 log 57460 139690745259584 Bad Request: /api/v1/reset-password/confirm/
+WARNING 2025-04-14 11:08:19,676 basehttp 57460 139690745259584 "POST /api/v1/reset-password/confirm/ HTTP/1.1" 400 48
+INFO 2025-04-14 11:08:49,412 autoreload 57460 139690825060352 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-14 11:08:50,328 autoreload 65054 140497258033152 Watching for file changes with StatReloader
+WARNING 2025-04-14 11:09:09,952 log 65054 140497104401984 Bad Request: /api/v1/reset-password/confirm/
+WARNING 2025-04-14 11:09:09,957 basehttp 65054 140497104401984 "POST /api/v1/reset-password/confirm/ HTTP/1.1" 400 48
+INFO 2025-04-14 11:09:30,284 autoreload 65054 140497258033152 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-14 11:09:31,221 autoreload 65312 139765738450944 Watching for file changes with StatReloader
+WARNING 2025-04-14 11:15:39,519 log 65312 139765658674752 Bad Request: /api/v1/reset-password/confirm/
+WARNING 2025-04-14 11:15:39,523 basehttp 65312 139765658674752 "POST /api/v1/reset-password/confirm/ HTTP/1.1" 400 48
+WARNING 2025-04-14 11:16:28,248 log 65312 139765647132224 Bad Request: /api/v1/reset-password/confirm/
+WARNING 2025-04-14 11:16:28,249 basehttp 65312 139765647132224 "POST /api/v1/reset-password/confirm/ HTTP/1.1" 400 43
+INFO 2025-04-14 11:26:23,381 autoreload 65312 139765738450944 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/serializers.py changed, reloading.
+INFO 2025-04-14 11:26:24,249 autoreload 71583 140701842010112 Watching for file changes with StatReloader
+WARNING 2025-04-14 11:27:29,226 log 71583 140701762315840 Bad Request: /api/v1/reset-password/confirm/
+WARNING 2025-04-14 11:27:29,229 basehttp 71583 140701762315840 "POST /api/v1/reset-password/confirm/ HTTP/1.1" 400 43
+WARNING 2025-04-14 11:27:40,576 log 71583 140701750773312 Bad Request: /api/v1/reset-password/confirm/
+WARNING 2025-04-14 11:27:40,577 basehttp 71583 140701750773312 "POST /api/v1/reset-password/confirm/ HTTP/1.1" 400 43
+WARNING 2025-04-14 11:28:47,430 log 71583 140701742380608 Bad Request: /api/v1/reset-password/confirm/
+WARNING 2025-04-14 11:28:47,432 basehttp 71583 140701742380608 "POST /api/v1/reset-password/confirm/ HTTP/1.1" 400 43
+WARNING 2025-04-14 11:28:52,609 log 71583 140701742380608 Bad Request: /api/v1/reset-password/confirm/
+WARNING 2025-04-14 11:28:52,610 basehttp 71583 140701742380608 "POST /api/v1/reset-password/confirm/ HTTP/1.1" 400 43
+WARNING 2025-04-14 11:35:32,469 log 71583 140701742380608 Bad Request: /api/v1/reset-password/confirm/
+WARNING 2025-04-14 11:35:32,470 basehttp 71583 140701742380608 "POST /api/v1/reset-password/confirm/ HTTP/1.1" 400 43
+INFO 2025-04-14 11:43:20,249 autoreload 71583 140701842010112 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-14 11:43:21,393 autoreload 77878 140190755287040 Watching for file changes with StatReloader
+INFO 2025-04-14 11:43:31,650 autoreload 77878 140190755287040 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-14 11:43:32,528 autoreload 77948 140312988725248 Watching for file changes with StatReloader
+INFO 2025-04-14 11:44:59,192 autoreload 77948 140312988725248 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-14 11:45:00,911 autoreload 78492 139853147815936 Watching for file changes with StatReloader
+INFO 2025-04-14 11:45:08,655 autoreload 78492 139853147815936 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-14 11:45:09,759 autoreload 78546 139939996897280 Watching for file changes with StatReloader
+INFO 2025-04-14 11:46:08,434 autoreload 78546 139939996897280 /home/ismael/bulk-sms-reseller/bulk_sms/sms_api/views.py changed, reloading.
+INFO 2025-04-14 11:46:09,300 autoreload 78911 139632287633408 Watching for file changes with StatReloader
+INFO 2025-04-14 12:23:48,752 autoreload 91093 140104617754624 Watching for file changes with StatReloader
+WARNING 2025-04-14 12:35:45,980 log 91093 140104537466432 Bad Request: /api/v1/reset-password/confirm/
+WARNING 2025-04-14 12:35:45,982 basehttp 91093 140104537466432 "POST /api/v1/reset-password/confirm/ HTTP/1.1" 400 43
+WARNING 2025-04-14 12:35:55,179 log 91093 140104450438720 Bad Request: /api/v1/reset-password/confirm/
+WARNING 2025-04-14 12:35:55,182 basehttp 91093 140104450438720 "POST /api/v1/reset-password/confirm/ HTTP/1.1" 400 43
+WARNING 2025-04-14 13:12:24,295 log 91093 140104450438720 Not Found: /
+WARNING 2025-04-14 13:12:24,296 basehttp 91093 140104450438720 "GET / HTTP/1.1" 404 179
+INFO 2025-04-14 13:14:07,075 basehttp 91093 140104450438720 "OPTIONS /api/v1/reset-password/request/ HTTP/1.1" 200 0
+INFO 2025-04-14 13:14:16,777 basehttp 91093 140104450438720 "POST /api/v1/reset-password/request/ HTTP/1.1" 200 88
+INFO 2025-04-14 13:16:23,325 basehttp 91093 140104450438720 "OPTIONS /api/v1/reset-password/confirm/ HTTP/1.1" 200 0
+INFO 2025-04-14 13:16:28,683 basehttp 91093 140104450438720 "POST /api/v1/reset-password/confirm/ HTTP/1.1" 200 51
+INFO 2025-04-14 13:16:57,088 basehttp 91093 140104537466432 "OPTIONS /api/v1/login/ HTTP/1.1" 200 0
+WARNING 2025-04-14 13:17:02,407 log 91093 140104537466432 Bad Request: /api/v1/login/
+WARNING 2025-04-14 13:17:02,408 basehttp 91093 140104537466432 "POST /api/v1/login/ HTTP/1.1" 400 44
+WARNING 2025-04-14 13:17:39,866 log 91093 140104442046016 Bad Request: /api/v1/reset-password/confirm/
+WARNING 2025-04-14 13:17:39,870 basehttp 91093 140104442046016 "POST /api/v1/reset-password/confirm/ HTTP/1.1" 400 43
+WARNING 2025-04-14 13:18:04,320 log 91093 140104450438720 Bad Request: /api/v1/reset-password/confirm/
+WARNING 2025-04-14 13:18:04,323 basehttp 91093 140104450438720 "POST /api/v1/reset-password/confirm/ HTTP/1.1" 400 43
+WARNING 2025-04-14 13:18:11,874 log 91093 140104450438720 Bad Request: /api/v1/reset-password/confirm/
+WARNING 2025-04-14 13:18:11,876 basehttp 91093 140104450438720 "POST /api/v1/reset-password/confirm/ HTTP/1.1" 400 43
+INFO 2025-04-14 13:18:33,195 basehttp 91093 140104433653312 "POST /api/v1/reset-password/request/ HTTP/1.1" 200 88
+INFO 2025-04-14 13:19:46,150 basehttp 91093 140104433653312 "POST /api/v1/reset-password/confirm/ HTTP/1.1" 200 51
+INFO 2025-04-14 13:21:56,119 basehttp 91093 140104433653312 "POST /api/v1/login/ HTTP/1.1" 200 762
