@@ -413,6 +413,18 @@ class LoginView(APIView):
 class SMSTemplateViewSet(viewsets.ModelViewSet):
     """
     API endpoint for managing SMS templates
+    
+    Provides CRUD operations:
+    - list: GET /smstemplates/
+    - retrieve: GET /smstemplates/{id}/
+    - create: POST /smstemplates/
+    - update: PUT /smstemplates/{id}/
+    - partial_update: PATCH /smstemplates/{id}/
+    - destroy: DELETE /smstemplates/{id}/
+    
+    Additional actions:
+    - mark_used: POST /smstemplates/{id}/mark_used/
+    - categories: GET /smstemplates/categories/
     """
     serializer_class = SMSTemplateSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -425,9 +437,82 @@ class SMSTemplateViewSet(viewsets.ModelViewSet):
         """Return templates owned by the current user"""
         return SMSTemplate.objects.filter(user=self.request.user)
     
+    def list(self, request, *args, **kwargs):
+        """
+        List all SMS templates for the current user
+        GET /smstemplates/
+        """
+        queryset = self.filter_queryset(self.get_queryset())
+        page = self.paginate_queryset(queryset)
+        
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+            
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+    
+    def retrieve(self, request, *args, **kwargs):
+        """
+        Retrieve a specific SMS template by ID
+        GET /smstemplates/{id}/
+        """
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+    
+    def create(self, request, *args, **kwargs):
+        """
+        Create a new SMS template
+        POST /smstemplates/
+        """
+        # Add current user to the data
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(user=request.user)
+        
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    
+    def update(self, request, *args, **kwargs):
+        """
+        Update an existing SMS template (full update)
+        PUT /smstemplates/{id}/
+        """
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        
+        if getattr(instance, '_prefetched_objects_cache', None):
+            instance._prefetched_objects_cache = {}
+            
+        return Response(serializer.data)
+    
+    def partial_update(self, request, *args, **kwargs):
+        """
+        Partially update an SMS template
+        PATCH /smstemplates/{id}/
+        """
+        kwargs['partial'] = True
+        return self.update(request, *args, **kwargs)
+    
+    def destroy(self, request, *args, **kwargs):
+        """
+        Delete an SMS template
+        DELETE /smstemplates/{id}/
+        """
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
     @action(detail=True, methods=['post'])
     def mark_used(self, request, pk=None):
-        """Mark a template as used by updating last_used timestamp"""
+        """
+        Mark a template as used by updating last_used timestamp
+        POST /smstemplates/{id}/mark_used/
+        """
         template = self.get_object()
         template.last_used = timezone.now()
         template.save(update_fields=['last_used'])
@@ -435,9 +520,32 @@ class SMSTemplateViewSet(viewsets.ModelViewSet):
     
     @action(detail=False, methods=['get'])
     def categories(self, request):
-        """Return available template categories"""
+        """
+        Return available template categories
+        GET /smstemplates/categories/
+        """
         categories = [{"value": key, "label": value} for key, value in SMSTemplate.CATEGORY_CHOICES]
         return Response(categories)
+
+    @action(detail=False, methods=['get'])
+    def stats(self, request):
+        """
+        Get statistics about templates
+        GET /smstemplates/stats/
+        """
+        user_templates = self.get_queryset()
+        stats = {
+            'total_count': user_templates.count(),
+            'by_category': {},
+            'recently_used': user_templates.exclude(last_used=None).order_by('-last_used')[:5].values('id', 'name', 'last_used'),
+            'recently_created': user_templates.order_by('-created_at')[:5].values('id', 'name', 'created_at')
+        }
+        
+        # Count by category
+        for key, label in SMSTemplate.CATEGORY_CHOICES:
+            stats['by_category'][key] = user_templates.filter(category=key).count()
+            
+        return Response(stats)
 
 
 class LogoutView(APIView):
