@@ -1,23 +1,95 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
+import BASE_URL from '../Utils/BaseUrl';
+import Swal from 'sweetalert2';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError('');
     
     try {
-      // Replace with your actual authentication logic
-      // For demo purposes only
-      localStorage.setItem('token', 'demo-token');
-      navigate('/');
+      // Make API request to login endpoint
+      const response = await axios.post(`${BASE_URL}/login/`, {
+        company_name: email, // API expects company_name which can be email too
+        password: password
+      });
+      
+      console.log('Login response:', response.data);
+      
+      // Save auth tokens
+      localStorage.setItem('auth_token', response.data.access);
+      localStorage.setItem('refresh_token', response.data.refresh);
+      
+      // Store user info
+      localStorage.setItem('user_info', JSON.stringify({
+        user_id: response.data.user_id,
+        company_name: response.data.company_name,
+        email: response.data.email,
+        phone_number: response.data.phone_number,
+        tokens_balance: response.data.tokens_balance || 0,
+        is_email_verified: response.data.is_email_verified
+      }));
+      
+      // Display success message with user details
+      Swal.fire({
+        icon: 'success',
+        title: 'Login Successful',
+        html: `
+          <div class="text-left">
+            <p><strong>Welcome back!</strong> ${response.data.company_name}</p>
+            <p><strong>User ID:</strong> ${response.data.user_id}</p>
+            <p><strong>Email:</strong> ${response.data.email}</p>
+            <p><strong>SMS Balance:</strong> ${response.data.tokens_balance || 0}</p>
+            <p><strong>Email Verified:</strong> ${response.data.is_email_verified ? 'Yes' : 'No'}</p>
+          </div>
+        `,
+        showConfirmButton: true,
+        confirmButtonText: 'Continue to Dashboard',
+        confirmButtonColor: '#3085d6',
+      }).then(() => {
+        // Navigate to dashboard
+        navigate('/dashboard');
+      });
     } catch (err) {
-      setError('Invalid email or password');
-      console.error(err);
+      console.error('Login error:', err);
+      
+      // Extract error message from response
+      const errorMessage = err.response?.data?.detail || 
+                          err.response?.data?.message || 
+                          err.response?.data?.error ||
+                          'Invalid email or password. Please try again.';
+                          
+      // Set error message to display in UI
+      setError(errorMessage);
+      
+      // Also show detailed error in alert
+      if (err.response) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Login Failed',
+          text: errorMessage,
+          footer: err.response.status ? `Error code: ${err.response.status}` : '',
+          confirmButtonColor: '#3085d6',
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Connection Error',
+          text: 'Unable to connect to the server. Please check your internet connection.',
+          confirmButtonColor: '#3085d6',
+        });
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -44,16 +116,16 @@ function Login() {
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <label htmlFor="email-address" className="sr-only">
-                Email address
+                Email address or Company Name
               </label>
               <input
                 id="email-address"
                 name="email"
-                type="email"
+                type="text"
                 autoComplete="email"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="Email address"
+                placeholder="Email address or Company Name"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -90,18 +162,27 @@ function Login() {
             </div>
 
             <div className="text-sm">
-              <a href="#" className="font-medium text-blue-600 hover:text-blue-500">
+              <Link to="/forgot-password" className="font-medium text-blue-600 hover:text-blue-500">
                 Forgot your password?
-              </a>
+              </Link>
             </div>
           </div>
 
           <div>
             <button
               type="submit"
+              disabled={loading}
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
-              Sign in
+              {loading ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Signing in...
+                </>
+              ) : "Sign in"}
             </button>
           </div>
         </form>

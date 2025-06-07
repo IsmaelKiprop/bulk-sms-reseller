@@ -64,9 +64,9 @@ export default function DashboardPage() {
           to="/dashboard/campaigns/new"
           className="inline-flex items-center px-4 py-2 rounded-md bg-light-blue-shade-500 hover:bg-light-blue-shade-600 text-white dark:bg-dark-blue-shade-500 dark:hover:bg-dark-blue-shade-400"
         >
-          <Send className="mr-2 h-4 w-4" />
-          New Campaign
-        </Link>
+            <Send className="mr-2 h-4 w-4" />
+            New Campaign
+          </Link>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -186,30 +186,30 @@ export default function DashboardPage() {
               to="/dashboard/campaigns/new"
               className="flex justify-start items-center px-4 py-2 rounded-md bg-light-blue-shade-500 hover:bg-light-blue-shade-600 text-white dark:bg-dark-blue-shade-500 dark:hover:bg-dark-blue-shade-400"
             >
-              <Send className="mr-2 h-4 w-4" />
-              Send New Campaign
-            </Link>
+                <Send className="mr-2 h-4 w-4" />
+                Send New Campaign
+              </Link>
             <Link
               to="/dashboard/templates/new"
               className="flex justify-start items-center px-4 py-2 rounded-md bg-white text-primary border border-light-blue-shade-300 hover:bg-light-blue-shade-50 dark:bg-dark-blue-shade-700 dark:text-white dark:border-dark-blue-shade-600 dark:hover:bg-dark-blue-shade-600"
             >
-              <FileText className="mr-2 h-4 w-4" />
-              Create Template
-            </Link>
+                <FileText className="mr-2 h-4 w-4" />
+                Create Template
+              </Link>
             <Link
               to="/dashboard/contacts/import"
               className="flex justify-start items-center px-4 py-2 rounded-md bg-white text-primary border border-light-blue-shade-300 hover:bg-light-blue-shade-50 dark:bg-dark-blue-shade-700 dark:text-white dark:border-dark-blue-shade-600 dark:hover:bg-dark-blue-shade-600"
             >
-              <Users className="mr-2 h-4 w-4" />
-              Import Contacts
-            </Link>
+                <Users className="mr-2 h-4 w-4" />
+                Import Contacts
+              </Link>
             <Link
               to="/dashboard/campaigns/schedule"
               className="flex justify-start items-center px-4 py-2 rounded-md bg-white text-primary border border-light-blue-shade-300 hover:bg-light-blue-shade-50 dark:bg-dark-blue-shade-700 dark:text-white dark:border-dark-blue-shade-600 dark:hover:bg-dark-blue-shade-600"
             >
-              <Clock className="mr-2 h-4 w-4" />
-              Schedule Campaign
-            </Link>
+                <Clock className="mr-2 h-4 w-4" />
+                Schedule Campaign
+              </Link>
           </div>
         </div>
       </div>
@@ -229,8 +229,8 @@ export default function DashboardPage() {
             View All
           </Link>
         </div>
-        <RecentCampaigns />
+          <RecentCampaigns />
       </div>
     </div>
   )
-} 
+}

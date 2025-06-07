@@ -144,13 +144,13 @@ function NavLink({ to, children, isActive, icon, exact }) {
 // Sidebar navigation items
 const navItems = [
   { name: 'Dashboard', path: '/', icon: <FiHome size={20} /> },
-  { name: 'Campaigns', path: '/campaigns', icon: <FiMail size={20} /> },
-  { name: 'Templates', path: '/templates', icon: <FiFileText size={20} /> },
-  { name: 'Contacts', path: '/contacts', icon: <FiUsers size={20} /> },
-  { name: 'Analytics', path: '/analytics', icon: <FiBarChart2 size={20} /> },
-  { name: 'Settings', path: '/settings', icon: <FiSettings size={20} /> },
-  { name: 'Billing', path: '/billing', icon: <FiCreditCard size={20} /> },
-  { name: 'Help', path: '/help', icon: <FiHelpCircle size={20} /> },
+  { name: 'Campaigns', path: 'campaigns', icon: <FiMail size={20} /> },
+  { name: 'Templates', path: 'templates', icon: <FiFileText size={20} /> },
+  { name: 'Contacts', path: 'contacts', icon: <FiUsers size={20} /> },
+  { name: 'Analytics', path: 'analytics', icon: <FiBarChart2 size={20} /> },
+  { name: 'Settings', path: 'settings', icon: <FiSettings size={20} /> },
+  { name: 'Billing', path: 'billing', icon: <FiCreditCard size={20} /> },
+  { name: 'Help', path: 'help', icon: <FiHelpCircle size={20} /> },
 ];
 
 export default DashboardLayout; 

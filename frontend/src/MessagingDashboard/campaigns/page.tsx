@@ -155,9 +155,9 @@ export default function CampaignsPage() {
           to="/dashboard/campaigns/new"
           className="inline-flex items-center px-4 py-2 rounded-md bg-light-blue-shade-500 hover:bg-light-blue-shade-600 text-white dark:bg-dark-blue-shade-500 dark:hover:bg-dark-blue-shade-400"
         >
-          <Plus className="mr-2 h-4 w-4" />
-          New Campaign
-        </Link>
+            <Plus className="mr-2 h-4 w-4" />
+            New Campaign
+          </Link>
       </div>
 
       <div className="border rounded-lg border-light-blue-shade-200 dark:border-dark-blue-shade-700 bg-white dark:bg-dark-blue-shade-800">
@@ -228,8 +228,8 @@ export default function CampaignsPage() {
                     <td className="text-right py-3 px-4">
                       <div className="relative inline-block text-left">
                         <button className="p-2 rounded-md text-light-blue-shade-600 dark:text-dark-blue-shade-300">
-                          <MoreHorizontal className="h-4 w-4" />
-                          <span className="sr-only">Open menu</span>
+                            <MoreHorizontal className="h-4 w-4" />
+                            <span className="sr-only">Open menu</span>
                         </button>
                         {/* Dropdown menu would be implemented with JavaScript in a real app */}
                       </div>
